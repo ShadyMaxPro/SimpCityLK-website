@@ -1,0 +1,129 @@
+<style>
+  /* Your CSS */
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background: #4267B2;
+    color: white;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+  }
+  .main-video {
+    flex: 3;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  video {
+    width: 100%;
+    border-radius: 8px;
+    background: black;
+  }
+  .video-info {
+    margin-top: 10px;
+  }
+  .video-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .video-description {
+    color: #555;
+    font-size: 14px;
+  }
+  .sidebar {
+    flex: 1;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    max-height: 600px;
+    overflow-y: auto;
+  }
+  .sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .video-thumb {
+    display: flex;
+    margin-bottom: 15px;
+    cursor: pointer;
+    align-items: center;
+  }
+  .video-thumb img {
+    width: 100px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 10px;
+  }
+  .video-thumb-title {
+    font-size: 14px;
+    color: #333;
+  }
+  .video-thumb:hover {
+    background: #e9ebee;
+    border-radius: 6px;
+  }
+</style>
+
+<header>SimpCityLK</header>
+
+<div class="container">
+  <div class="main-video">
+    <video id="mainVideo" controls>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-info">
+      <div class="video-title" id="videoTitle">Big Buck Bunny</div>
+      <div class="video-description" id="videoDescription">
+        A short computer-animated comedy film by Blender Foundation.
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <h3>Up Next</h3>
+    <div class="video-thumb" onclick="changeVideo('https://www.w3schools.com/html/mov_bbb.mp4', 'Big Buck Bunny', 'A short computer-animated comedy film by Blender Foundation.', 'https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217')">
+      <img src="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217" alt="Big Buck Bunny" />
+      <div class="video-thumb-title">Big Buck Bunny</div>
+    </div>
+    <div class="video-thumb" onclick="changeVideo('https://www.w3schools.com/html/movie.mp4', 'Bear', 'A short video of a bear in the forest.', 'https://www.w3schools.com/howto/img_snow_wide.jpg')">
+      <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" alt="Bear" />
+      <div class="video-thumb-title">Bear</div>
+    </div>
+    <div class="video-thumb" onclick="changeVideo('https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm', 'Flower', 'A beautiful flower timelapse.', 'https://interactive-examples.mdn.mozilla.net/media/cc0-images/flower-1.jpg')">
+      <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/flower-1.jpg" alt="Flower" />
+      <div class="video-thumb-title">Flower</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function changeVideo(src, title, description, thumb) {
+    const video = document.getElementById('mainVideo');
+    const videoTitle = document.getElementById('videoTitle');
+    const videoDescription = document.getElementById('videoDescription');
+
+    video.src = src;
+    video.play();
+
+    videoTitle.textContent = title;
+    videoDescription.textContent = description;
+  }
+</script>
