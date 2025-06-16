@@ -1,129 +1,222 @@
-<style>
-  /* Your CSS */
-  body {
-    font-family: Arial, sans-serif;
-    background: #f0f2f5;
-    margin: 0;
-    padding: 0;
-  }
-  header {
-    background: #4267B2;
-    color: white;
-    padding: 10px 20px;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  .container {
-    display: flex;
-    max-width: 1200px;
-    margin: 20px auto;
-    gap: 20px;
-  }
-  .main-video {
-    flex: 3;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  video {
-    width: 100%;
-    border-radius: 8px;
-    background: black;
-  }
-  .video-info {
-    margin-top: 10px;
-  }
-  .video-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  .video-description {
-    color: #555;
-    font-size: 14px;
-  }
-  .sidebar {
-    flex: 1;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    max-height: 600px;
-    overflow-y: auto;
-  }
-  .sidebar h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-weight: bold;
-    font-size: 18px;
-  }
-  .video-thumb {
-    display: flex;
-    margin-bottom: 15px;
-    cursor: pointer;
-    align-items: center;
-  }
-  .video-thumb img {
-    width: 100px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-right: 10px;
-  }
-  .video-thumb-title {
-    font-size: 14px;
-    color: #333;
-  }
-  .video-thumb:hover {
-    background: #e9ebee;
-    border-radius: 6px;
-  }
-</style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SimpCityLK</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-<header>SimpCityLK</header>
 
-<div class="container">
-  <div class="main-video">
-    <video id="mainVideo" controls>
-      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    <div class="video-info">
-      <div class="video-title" id="videoTitle">Big Buck Bunny</div>
-      <div class="video-description" id="videoDescription">
-        A short computer-animated comedy film by Blender Foundation.
-      </div>
+  <style>
+    /* Import Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    :root {
+      --primary-color: #1877f2;
+      --background-color: #f0f2f5;
+      --text-color: #1c1e21;
+      --subtext-color: #606770;
+      --white: #ffffff;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    /* Header */
+    header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 15px 30px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 24px;
+      font-weight: 500px;
+    }
+
+    .header-content a {
+      display: inline-flex;
+      text-decoration: none;
+      color: var(--white);
+      align-items: center;
+    }
+
+    .site-logo {
+      height: 50px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .header-content span {
+      line-height: 1;
+    }
+
+    /* Layout container */
+    .container {
+      display: flex;
+      max-width: 930px;
+      margin: 20px auto 40px;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    /* Main video area */
+    .main-video {
+      flex: 3;
+      background: var(--white);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .main-video iframe {
+      width: 100%;
+      height: 360px;
+      border: none;
+      border-radius: 8px;
+      background: black;
+      object-fit: cover;
+    }
+
+    .video-info {
+      margin-top: 10px;
+    }
+
+    .video-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+
+    .video-description {
+      font-size: 14px;
+      color: var(--subtext-color);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      flex: 1;
+      max-width: 250px;
+      background: var(--white);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    /* Video boxes in sidebar */
+    .video-box {
+      cursor: pointer;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background-color: #eee;
+      border-radius: 6px;
+      font-weight: 700;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      color: var(--text-color);
+    }
+
+    .video-box:hover {
+      background-color: #e9ebee;
+      color: var(--primary-color);
+    }
+
+    .video-box.active {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+  </style>
+
+  <header>
+    <div class="header-content">
+      <a href="index.html">
+        <img src="photo_2025-05-23_11-07-14.jpg" alt="SimpCityLK Logo" class="site-logo" />
+      </a>
+      <span>SimpCityLK</span>
     </div>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search videos..." />
+    <button>Search</button>
   </div>
 
-  <div class="sidebar">
-    <h3>Up Next</h3>
-    <div class="video-thumb" onclick="changeVideo('https://www.w3schools.com/html/mov_bbb.mp4', 'Big Buck Bunny', 'A short computer-animated comedy film by Blender Foundation.', 'https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217')">
-      <img src="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217" alt="Big Buck Bunny" />
-      <div class="video-thumb-title">Big Buck Bunny</div>
+  <div class="videos-container">
+    <div class="video-card">
+      <a href="Page - 01.html">
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <div class="video-info">
+          <h3 class="video-title">Video - 01</h3>
+        </div>
+      </a>
     </div>
-    <div class="video-thumb" onclick="changeVideo('https://www.w3schools.com/html/movie.mp4', 'Bear', 'A short video of a bear in the forest.', 'https://www.w3schools.com/howto/img_snow_wide.jpg')">
-      <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" alt="Bear" />
-      <div class="video-thumb-title">Bear</div>
+
+    <div class="video-card">
+      <a href="Page - 02.html">
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <div class="video-info">
+          <h3 class="video-title">Video - 02</h3>
+        </div>
+      </a>
     </div>
-    <div class="video-thumb" onclick="changeVideo('https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm', 'Flower', 'A beautiful flower timelapse.', 'https://interactive-examples.mdn.mozilla.net/media/cc0-images/flower-1.jpg')">
-      <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/flower-1.jpg" alt="Flower" />
-      <div class="video-thumb-title">Flower</div>
+
+    <div class="video-card">
+      <a href="Page - 03.html">
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <div class="video-info">
+          <h3 class="video-title">Video - 03</h3>
+        </div>
+      </a>
     </div>
+
+    <div class="video-card">
+      <a href="Page - 04.html">
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <div class="video-info">
+          <h3 class="video-title">Video - 04</h3>
+        </div>
+      </a>
+    </div>
+
+    <!-- Add more video cards here -->
   </div>
-</div>
 
-<script>
-  function changeVideo(src, title, description, thumb) {
-    const video = document.getElementById('mainVideo');
-    const videoTitle = document.getElementById('videoTitle');
-    const videoDescription = document.getElementById('videoDescription');
+  <script>
+    const thumbnails = [
+      "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
+      "https://c4.wallpaperflare.com/wallpaper/740/311/655/the-sun-water-sea-girl-wallpaper-preview.jpg",
+      "https://c4.wallpaperflare.com/wallpaper/814/529/162/sea-bikini-vacation-ocean-wallpaper-preview.jpg",
+      "https://images.wallpapersden.com/image/wxl-poonam-pandey-hot-hd-bikini-images_42346.jpg",
+      "https://images.news18.com/ibnlive/uploads/2023/05/318599667_513199807509111_3144331053555681340_n-168371332416x9.jpg?impolicy=website&width=640&height=360",
+      "https://celebblinks.com/wp-content/uploads/2024/08/channels4_profile.jpg"
+    ];
 
-    video.src = src;
-    video.play();
+    document.querySelectorAll(".thumbnail").forEach(img => {
+      const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
+      img.src = randomThumb;
+    });
+  </script>
 
-    videoTitle.textContent = title;
-    videoDescription.textContent = description;
-  }
-</script>
+</body>
+</html>
