@@ -6,7 +6,6 @@
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Optional inline styling for the anti-adblock message */
     #adblock-message {
       display: none;
       position: fixed;
@@ -24,6 +23,12 @@
     }
     #adblock-message strong {
       font-size: 28px;
+    }
+    #adblock-message button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -84,7 +89,8 @@
   <!-- Anti-AdBlock Message -->
   <div id="adblock-message">
     <strong>We noticed you're using an ad blocker.</strong><br />
-    Please support us by disabling it for this site. Thank you!
+    Please support us by disabling it for this site.<br />
+    <button onclick="location.reload()">Reload Page</button>
   </div>
 
   <!-- Thumbnail Randomizer -->
@@ -107,7 +113,6 @@
 
   <!-- Anti-AdBlock Script -->
   <script>
-    // Create bait element
     const bait = document.createElement('div');
     bait.className = 'ad-banner adsbox ad-ad';
     bait.style.display = 'block';
@@ -120,9 +125,8 @@
     window.addEventListener('load', function () {
       setTimeout(() => {
         if (!bait.offsetParent || bait.offsetHeight === 0 || bait.offsetLeft < 0) {
-          // Ad blocker detected
           document.getElementById('adblock-message').style.display = 'block';
-          document.body.style.overflow = 'hidden'; // disable scroll
+          document.body.style.overflow = 'hidden';
         }
         bait.remove();
       }, 100);
