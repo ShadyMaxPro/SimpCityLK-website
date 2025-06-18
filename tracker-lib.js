@@ -1,20 +1,13 @@
 // tracker-lib.js
 (function () {
-  // Dummy function that simulates real tracking logic
+  // Dummy logic to simulate a real tracking script
   const trackerActive = true;
 
-  // Add a hidden element to confirm loading
-  const marker = document.createElement('div');
-  marker.id = 'tracker-confirm';
-  marker.style.cssText = 'display: none;';
-  document.body.appendChild(marker);
-
-  console.log("Tracker-lib loaded and marker inserted.");
-})();
-
-(function () {
+  // Add a hidden marker to verify script loaded
   const marker = document.createElement('div');
   marker.id = 'tracker-confirm';
   marker.style.display = 'none';
   document.body.appendChild(marker);
+
+  console.log("tracker-lib.js loaded successfully.");
 })();
