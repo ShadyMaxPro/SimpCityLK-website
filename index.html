@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598" />
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
 
@@ -16,7 +15,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       color: white;
       z-index: 9999;
       text-align: center;
@@ -31,29 +30,17 @@
 
     #adblock-overlay p {
       font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    #adblock-overlay button {
-      padding: 12px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      background-color: red;
-      color: white;
-      cursor: pointer;
-      border-radius: 6px;
+      margin-bottom: 15px;
     }
   </style>
-
 </head>
 <body>
 
   <!-- Anti-Adblock Overlay -->
   <div id="adblock-overlay">
     <h2>Ad Blocker Detected</h2>
-    <p>We rely on ads to keep SimpCityLK running. Please disable your ad blocker to continue.</p>
-    <button onclick="location.reload()">I Disabled AdBlocker</button>
+    <p>We rely on ads to keep SimpCityLK running.</p>
+    <p><strong>Please disable your ad blocker and refresh the page manually.</strong></p>
   </div>
 
   <script>
@@ -73,7 +60,7 @@
     }, 100);
   </script>
 
-  <!-- Your existing content starts below -->
+  <!-- Site Header -->
   <header>
     <div class="header-content">
       <a href="index.html">
@@ -83,11 +70,13 @@
     </div>
   </header>
 
+  <!-- Search Bar -->
   <div class="search-bar">
     <input type="text" placeholder="Search videos..." />
     <button>Search</button>
   </div>
 
+  <!-- Video Cards -->
   <div class="videos-container">
     <div class="video-card">
       <a href="Page - 01.html">
@@ -123,6 +112,7 @@
     </div>
   </div>
 
+  <!-- Thumbnail Randomizer -->
   <script>
     const thumbnails = [
       "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
