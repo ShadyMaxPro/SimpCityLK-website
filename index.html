@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
-
   <style>
-    /* Anti-Adblock Overlay Style */
+    /* --- Anti-Adblock Overlay Style --- */
     #adblock-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100vw;
       height: 100vh;
       background: rgba(0, 0, 0, 0.95);
@@ -20,17 +18,129 @@
       z-index: 9999;
       text-align: center;
       padding-top: 20%;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Roboto', Arial, sans-serif;
     }
-
     #adblock-overlay h2 {
       font-size: 32px;
       margin-bottom: 20px;
     }
-
     #adblock-overlay p {
       font-size: 18px;
       margin-bottom: 15px;
+    }
+
+    /* --- Your existing styles (with some improvements) --- */
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #1c1e21;
+    }
+
+    header {
+      background-color: #1877F2;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      height: 80px;
+      box-sizing: border-box;
+    }
+
+    .home-button {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      font-size: 26px;
+      font-weight: bold;
+      gap: 15px;
+    }
+
+    .home-button img {
+      height: 55px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+
+    .main-video {
+      flex-grow: 1;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe#mainVideo {
+      width: 100%;
+      height: 360px;
+      border-radius: 8px;
+      background: black;
+      border: none;
+    }
+
+    .video-info {
+      margin-top: 10px;
+    }
+
+    .video-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #1877F2;
+    }
+
+    .video-description {
+      font-size: 14px;
+      color: #606770;
+    }
+
+    .sidebar {
+      width: 200px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1877F2;
+    }
+
+    .video-box {
+      cursor: pointer;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background-color: #eee;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+      user-select: none;
+    }
+
+    .video-box:hover {
+      background-color: #ccc;
+    }
+
+    .video-box.active {
+      background-color: #1877F2;
+      color: white;
     }
   </style>
 </head>
@@ -43,90 +153,84 @@
     <p><strong>Please disable your ad blocker and refresh the page manually.</strong></p>
   </div>
 
-  <script>
-    // Simple Anti-Adblock Detection
-    const bait = document.createElement('div');
-    bait.className = 'adsbox';
-    bait.style.height = '1px';
-    bait.style.position = 'absolute';
-    bait.style.top = '-1000px';
-    document.body.appendChild(bait);
-
-    window.setTimeout(() => {
-      if (!bait || bait.offsetHeight === 0) {
-        document.getElementById('adblock-overlay').style.display = 'block';
-      }
-      bait.remove();
-    }, 100);
-  </script>
-
-  <!-- Site Header -->
   <header>
-    <div class="header-content">
-      <a href="index.html">
-        <img src="photo_2025-05-23_11-07-14.jpg" alt="SimpCityLK Logo" class="site-logo" />
-      </a>
-      <span>SimpCityLK</span>
-    </div>
+    <a href="index.html" class="home-button">
+      <img src="photo_2025-05-23_11-07-14.jpg" alt="SimpCityLK Logo" />
+      SimpCityLK
+    </a>
   </header>
 
-  <!-- Search Bar -->
-  <div class="search-bar">
-    <input type="text" placeholder="Search videos..." />
-    <button>Search</button>
-  </div>
+  <div class="container">
+    <div class="main-video">
+      <iframe 
+        id="mainVideo" 
+        src="https://streamtape.com/e/P8mrl6leXbhgZO/" 
+        allowfullscreen>
+      </iframe>
+      <div class="video-info">
+        <div class="video-title" id="videoTitle">Video 01</div>
+        <div class="video-description" id="videoDescription">
+          This video is embedded from Streamtape.
+        </div>
+      </div>
+    </div>
 
-  <!-- Video Cards -->
-  <div class="videos-container">
-    <div class="video-card">
-      <a href="Page - 01.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 01</h3>
-        </div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="Page - 02.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 02</h3>
-        </div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="Page - 03.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 03</h3>
-        </div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="Page - 04.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 04</h3>
-        </div>
-      </a>
+    <div class="sidebar">
+      <h3>Up Next</h3>
+
+      <div class="video-box active" onclick="changeVideo(this, 'https://streamtape.com/e/P8mrl6leXbhgZO/', 'Video 01', 'This video is embedded from Streamtape.')">
+        Video 01
+      </div>
+
+      <div class="video-box" onclick="changeVideo(this, 'https://streamtape.com/e/m34vp0kVvgSbYvZ/', 'Video 02', 'This video is embedded from Streamtape.')">
+        Video 02
+      </div>
+
+      <div class="video-box" onclick="changeVideo(this, 'https://streamtape.com/e/aZ8Plmb3OJCx474/', 'Video 03', 'This video is embedded from Streamtape.')">
+        Video 03
+      </div>
+
+      <div class="video-box" onclick="changeVideo(this, 'https://streamtape.com/e/rBz8xop0p9ibvgK/', 'Video 04', 'This video is embedded from Streamtape.')">
+        Video 04
+      </div>
     </div>
   </div>
 
-  <!-- Thumbnail Randomizer -->
   <script>
-    const thumbnails = [
-      "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
-      "https://c4.wallpaperflare.com/wallpaper/740/311/655/the-sun-water-sea-girl-wallpaper-preview.jpg",
-      "https://c4.wallpaperflare.com/wallpaper/814/529/162/sea-bikini-vacation-ocean-wallpaper-preview.jpg",
-      "https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/HZHnL4R6xj1hrqjd5/videoblocks-bikini-beach-woman-happy-smiling-playful-cheerful-having-fun-dancing-around-bikini-girl-wearing-sunglasses-excited-and-joyful-beautiful-sexy-mixed-race-woman-having-fun-on-summer-travel-vacation_rnwnkc90b_thumbnail-1080_15.png",
-      "https://images.news18.com/ibnlive/uploads/2023/05/318599667_513199807509111_3144331053555681340_n-168371332416x9.jpg?impolicy=website&width=640&height=360",
-      "https://i0.wp.com/www.badchix.com/wp-content/uploads/2015/07/seen-on-badchix-girls-and-a-hot-summer-are-a-perfect-combo-01.jpg?fit=750%2C421&ssl=1"
-    ];
+    // Change video function for sidebar
+    function changeVideo(element, src, title, description) {
+      document.getElementById('mainVideo').src = src;
+      document.getElementById('videoTitle').textContent = title;
+      document.getElementById('videoDescription').textContent = description;
 
-    document.querySelectorAll(".thumbnail").forEach(img => {
-      const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
-      img.src = randomThumb;
-    });
+      document.querySelectorAll('.video-box').forEach(box => box.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    // Anti-Adblock detection logic
+    (function() {
+      const bait = document.createElement('div');
+      bait.className = 'adsbox';
+      bait.style.height = '1px';
+      bait.style.width = '1px';
+      bait.style.position = 'absolute';
+      bait.style.top = '-1000px';
+      bait.style.left = '-1000px';
+      bait.style.pointerEvents = 'none';
+      bait.style.zIndex = '9999999';
+      document.body.appendChild(bait);
+
+      window.setTimeout(() => {
+        const detected = !bait || bait.offsetHeight === 0 || bait.offsetParent === null;
+        if (detected) {
+          // Show overlay
+          document.getElementById('adblock-overlay').style.display = 'block';
+          // Optional: disable interaction with the page behind overlay
+          document.body.style.overflow = 'hidden';
+        }
+        bait.remove();
+      }, 100);
+    })();
   </script>
 
 </body>
