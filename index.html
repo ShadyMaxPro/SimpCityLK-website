@@ -1,4 +1,43 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,64 +45,44 @@
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Adblock popup styles */
-    #adblock-popup {
+    /* Ad-blocker message styling */
+    .adblock-overlay {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
       justify-content: center;
-    }
-
-    .popup-box {
-      background: #1c1c1c;
+      align-items: center;
       color: white;
-      padding: 30px;
-      border-radius: 10px;
+      font-family: Arial, sans-serif;
       text-align: center;
-      max-width: 90%;
-      width: 400px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     }
-
-    .popup-box h2 {
-      margin: 0 0 15px;
-      font-size: 24px;
+    .adblock-message {
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 20px;
     }
-
-    .popup-box p {
-      font-size: 16px;
-      margin-bottom: 20px;
+    .adblock-message h2 {
+      margin-top: 0;
     }
-
-    .popup-box button {
-      background: #ff4d4d;
+    .adblock-message button {
+      background: #ff4444;
+      color: white;
       border: none;
       padding: 10px 20px;
-      color: white;
-      font-size: 16px;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      font-size: 16px;
+      margin-top: 10px;
     }
-
-    .popup-box button:hover {
-      background: #e60000;
-    }
-
-    /* Bait div (used to test adblock) */
-    .adsbox {
-      height: 1px !important;
-      width: 1px !important;
-      position: absolute !important;
-      left: -10000px !important;
-      top: -10000px !important;
-      visibility: hidden !important;
+    .adblock-message button:hover {
+      background: #cc0000;
     }
   </style>
 </head>
@@ -121,20 +140,18 @@
     </div>
   </div>
 
-  <!-- AdBlock Detection Popup -->
-  <div id="adblock-popup">
-    <div class="popup-box">
-      <h2>Ad Blocker Detected</h2>
-      <p>Our website runs free thanks to ads. Please disable your ad blocker and reload the page.</p>
-      <button onclick="location.reload()">Reload Page</button>
+  <!-- Ad-blocker Detection Overlay -->
+  <div id="adblock-overlay" class="adblock-overlay">
+    <div class="adblock-message">
+      <h2>Ad-Blocker Detected</h2>
+      <p>We rely on ads to keep SimpCityLK free. Please disable your ad-blocker to continue enjoying our content.</p>
+      <button onclick="checkAdBlocker()">I Disabled My Ad-Blocker</button>
     </div>
   </div>
 
-  <!-- Adblock Bait -->
-  <div class="adsbox" id="ads-test"></div>
-
-  <!-- Thumbnail Randomizer -->
+  <!-- Scripts -->
   <script>
+    // Thumbnail Randomizer
     document.addEventListener('DOMContentLoaded', function () {
       const thumbnails = [
         "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
@@ -148,22 +165,41 @@
         const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
         img.src = randomThumb;
       });
-    });
-  </script>
 
-  <!-- Adblock Detection Script -->
-  <script>
-    window.addEventListener('load', function () {
+      // Trigger ad-blocker check after thumbnails are set
+      checkAdBlocker();
+    });
+
+    // Ad-blocker Detection
+    function checkAdBlocker() {
+      const overlay = document.getElementById('adblock-overlay');
+      // Create a bait element with common ad-related class names
+      const bait = document.createElement('div');
+      bait.setAttribute('class', 'ad ads advertisement banner-ad');
+      bait.style.display = 'none';
+      document.body.appendChild(bait);
+
+      // Attempt to fetch a bait ad resource
+      fetch('/ads.js', { method: 'HEAD', mode: 'no-cors' })
+        .then(() => {
+          // Ad resource loaded, assume no ad-blocker
+          overlay.style.display = 'none';
+          bait.remove();
+        })
+        .catch(() => {
+          // Ad resource blocked, show overlay
+          overlay.style.display = 'flex';
+          bait.remove();
+        });
+
+      // Fallback: Check if bait element is blocked by display property
       setTimeout(() => {
-        const bait = document.getElementById('ads-test');
-        const isBlocked = !bait || bait.offsetParent === null || bait.offsetHeight === 0;
-
-        if (isBlocked) {
-          document.getElementById('adblock-popup').style.display = 'flex';
-          document.body.style.overflow = 'hidden';
+        if (window.getComputedStyle(bait).display === 'none' && !overlay.style.display) {
+          overlay.style.display = 'flex';
         }
-      }, 300);
-    });
+        bait.remove();
+      }, 100);
+    }
   </script>
 
 </body>
