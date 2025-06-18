@@ -138,5 +138,16 @@
     });
   </script>
 
+  <script>
+  const adScript = document.createElement('script');
+  adScript.src = '/ads.js';
+  adScript.onerror = function () {
+    // This will trigger if the ad blocker blocks the fake script
+    document.getElementById('adblock-overlay').style.display = 'block';
+  };
+  document.body.appendChild(adScript);
+</script>
+
+
 </body>
 </html>
