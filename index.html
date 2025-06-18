@@ -95,31 +95,6 @@
     </div>
   </div>
 
-  <!-- Adblock Detection Script -->
-  <script>
-    window.addEventListener('load', function () {
-      const bait = document.createElement('div');
-      bait.className = 'adsbox';
-      bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-1000px;top:-1000px;';
-      document.body.appendChild(bait);
-
-      setTimeout(function () {
-        const detected =
-          !bait ||
-          bait.offsetHeight === 0 ||
-          bait.offsetParent === null ||
-          getComputedStyle(bait).display === 'none' ||
-          getComputedStyle(bait).visibility === 'hidden';
-
-        if (detected) {
-          document.getElementById('adblock-overlay').style.display = 'block';
-        }
-
-        bait.remove();
-      }, 200);
-    });
-  </script>
-
   <!-- Thumbnail Randomizer -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -138,47 +113,38 @@
     });
   </script>
 
+  <!-- Adblock Detection Script -->
   <script>
-  const adScript = document.createElement('script');
-  adScript.src = '/ads.js';
-  adScript.onerror = function () {
-    // This will trigger if the ad blocker blocks the fake script
-    document.getElementById('adblock-overlay').style.display = 'block';
-  };
-  document.body.appendChild(adScript);
-</script>
+    window.addEventListener('load', function () {
+      // --- Bait Method ---
+      const bait = document.createElement('div');
+      bait.className = 'adsbox';
+      bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-1000px;top:-1000px;';
+      document.body.appendChild(bait);
 
-  <script>
-  // Bait method
-  const bait = document.createElement('div');
-  bait.className = 'adsbox';
-  bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-1000px;top:-1000px;';
-  document.body.appendChild(bait);
+      setTimeout(function () {
+        const blocked =
+          !bait ||
+          bait.offsetHeight === 0 ||
+          bait.offsetParent === null ||
+          getComputedStyle(bait).display === 'none' ||
+          getComputedStyle(bait).visibility === 'hidden';
 
-  setTimeout(function () {
-    const blocked =
-      !bait ||
-      bait.offsetHeight === 0 ||
-      bait.offsetParent === null ||
-      getComputedStyle(bait).display === 'none' ||
-      getComputedStyle(bait).visibility === 'hidden';
+        if (blocked) {
+          document.getElementById('adblock-overlay').style.display = 'block';
+        }
+        bait.remove();
+      }, 200);
 
-    if (blocked) {
-      document.getElementById('adblock-overlay').style.display = 'block';
-    }
-    bait.remove();
-  }, 200);
-
-  // Fake script method
-  const adScript = document.createElement('script');
-  adScript.src = '/ads.js';
-  adScript.onerror = function () {
-    document.getElementById('adblock-overlay').style.display = 'block';
-  };
-  document.body.appendChild(adScript);
-</script>
-
-
+      // --- Fake Script Method ---
+      const adScript = document.createElement('script');
+      adScript.src = '/ads.js'; // This script should exist on your server
+      adScript.onerror = function () {
+        document.getElementById('adblock-overlay').style.display = 'block';
+      };
+      document.body.appendChild(adScript);
+    });
+  </script>
 
 </body>
 </html>
