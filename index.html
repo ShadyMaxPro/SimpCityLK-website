@@ -134,14 +134,13 @@
       checkAdBlocker();
     });
 
-    // Enhanced Ad-blocker Detection Function
+    // Enhanced Ad-blocker Detection Function with reload on success
     function checkAdBlocker() {
       const overlay = document.getElementById('adblock-overlay');
 
       // Create bait element with common ad-related class names
       const bait = document.createElement('div');
       bait.className = 'ad ads advertisement banner-ad';
-      // Hide bait off-screen but keep it in DOM
       bait.style.position = 'absolute';
       bait.style.left = '-9999px';
       bait.style.height = '1px';
@@ -149,33 +148,27 @@
       bait.style.top = '0';
       document.body.appendChild(bait);
 
-      // Flag to track if image load fails
       let imgBlocked = false;
-
-      // Create a dummy image to test ad resource blocking
       const testImg = new Image();
       testImg.src = '/ads.js'; // Typical ad resource path (adjust if needed)
-      testImg.onerror = () => {
-        imgBlocked = true;
-      };
+      testImg.onerror = () => { imgBlocked = true; };
 
-      // Check bait element after a short delay to allow ad blockers to act
       setTimeout(() => {
         const baitBlocked =
           !document.body.contains(bait) ||
           window.getComputedStyle(bait).display === 'none' ||
           bait.offsetParent === null;
 
-        // If either bait is blocked or image failed to load, show overlay
         if (baitBlocked || imgBlocked) {
+          // Ad blocker detected, show overlay
           overlay.style.display = 'flex';
-          // Optionally, trap focus inside overlay for accessibility
           overlay.focus();
         } else {
+          // No ad blocker detected, reload page to fully enable ads/content
           overlay.style.display = 'none';
+          location.reload();
         }
 
-        // Clean up bait element
         bait.remove();
       }, 150);
     }
