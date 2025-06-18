@@ -113,23 +113,31 @@
 
   <!-- Anti-AdBlock Script -->
   <script>
-    const bait = document.createElement('div');
-    bait.className = 'ad-banner adsbox ad-ad';
-    bait.style.display = 'block';
-    bait.style.position = 'absolute';
-    bait.style.height = '1px';
-    bait.style.width = '1px';
-    bait.style.left = '-10000px';
-    document.body.appendChild(bait);
-
     window.addEventListener('load', function () {
+      const bait = document.createElement('div');
+      bait.innerHTML = '&nbsp;';
+      bait.className = 'adsbox';
+      bait.style.position = 'absolute';
+      bait.style.height = '1px';
+      bait.style.width = '1px';
+      bait.style.top = '-1000px';
+      document.body.appendChild(bait);
+
       setTimeout(() => {
-        if (!bait.offsetParent || bait.offsetHeight === 0 || bait.offsetLeft < 0) {
+        const baitStyles = window.getComputedStyle(bait);
+        const isBlocked = (
+          baitStyles.display === 'none' ||
+          baitStyles.visibility === 'hidden' ||
+          bait.offsetHeight === 0
+        );
+
+        if (isBlocked) {
           document.getElementById('adblock-message').style.display = 'block';
           document.body.style.overflow = 'hidden';
         }
+
         bait.remove();
-      }, 100);
+      }, 200);
     });
   </script>
 
