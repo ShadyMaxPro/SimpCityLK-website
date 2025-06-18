@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598">
   <title>SimpCityLK</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
     :root {
       --primary-color: #1877f2;
       --background-color: #f0f2f5;
@@ -26,20 +29,114 @@
       background-color: var(--primary-color);
       color: var(--white);
       padding: 15px 30px;
-      font-size: 24px;
-      font-weight: 400;
     }
 
     .header-content {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 5px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .header-content a {
+      display: inline-flex;
+      text-decoration: none;
+      color: var(--white);
+      align-items: center;
     }
 
     .site-logo {
       height: 50px;
       width: auto;
       border-radius: 6px;
+    }
+
+    .header-content span {
+      line-height: 1;
+    }
+
+    .container {
+      display: flex;
+      max-width: 930px;
+      margin: 20px auto 40px;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .main-video {
+      flex: 3;
+      background: var(--white);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .main-video iframe {
+      width: 100%;
+      height: 360px;
+      border: none;
+      border-radius: 8px;
+      background: black;
+      object-fit: cover;
+    }
+
+    .video-info {
+      margin-top: 10px;
+    }
+
+    .video-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+
+    .video-description {
+      font-size: 14px;
+      color: var(--subtext-color);
+    }
+
+    .sidebar {
+      flex: 1;
+      max-width: 250px;
+      background: var(--white);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .video-box {
+      cursor: pointer;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background-color: #eee;
+      border-radius: 6px;
+      font-weight: 700;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      color: var(--text-color);
+    }
+
+    .video-box:hover {
+      background-color: #e9ebee;
+      color: var(--primary-color);
+    }
+
+    .video-box.active {
+      background-color: var(--primary-color);
+      color: var(--white);
     }
 
     .search-bar {
@@ -73,85 +170,6 @@
       background-color: #145dbf;
     }
 
-    .container {
-      display: flex;
-      max-width: 1200px;
-      margin: 20px auto;
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .main-video {
-      flex: 3;
-      background: var(--white);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-    }
-
-    .main-video iframe {
-      width: 100%;
-      height: 360px;
-      border-radius: 8px;
-      background: black;
-      border: none;
-    }
-
-    .video-info {
-      margin-top: 10px;
-    }
-
-    .video-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 5px;
-      color: var(--primary-color);
-    }
-
-    .video-description {
-      font-size: 14px;
-      color: var(--subtext-color);
-    }
-
-    .sidebar {
-      flex: 1;
-      background: var(--white);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      max-height: 600px;
-      overflow-y: auto;
-    }
-
-    .sidebar h3 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .video-box {
-      cursor: pointer;
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      background-color: #eee;
-      border-radius: 5px;
-      font-weight: bold;
-      text-align: center;
-      transition: background-color 0.3s, color 0.3s;
-      user-select: none;
-    }
-
-    .video-box:hover {
-      background-color: #ccc;
-    }
-
-    .video-box.active {
-      background-color: var(--primary-color);
-      color: white;
-    }
-
     .videos-container {
       max-width: 1200px;
       margin: 0 auto 40px;
@@ -175,25 +193,56 @@
       transform: translateY(-5px);
     }
 
+    .video-card iframe,
     .video-card img {
       width: 100%;
       height: 180px;
+      border: none;
       object-fit: cover;
     }
 
-    .video-card .video-info {
+    .video-info {
       padding: 12px 15px;
     }
 
-    .video-card .video-title {
-      font-size: 16px;
+    .video-title {
       font-weight: 700;
+      font-size: 16px;
+      margin: 0 0 6px;
       color: var(--primary-color);
-      margin: 0;
+    }
+
+    .video-channel {
+      font-size: 14px;
+      color: var(--subtext-color);
+    }
+
+    .reload-button-container {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .reload-button {
+      padding: 10px 20px;
+      background: #1877f2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .reload-button:hover {
+      background: #145dbf;
     }
   </style>
 </head>
 <body>
+
+  <!-- Reload Button -->
+  <div class="reload-button-container">
+    <button class="reload-button" onclick="location.reload()">🔄 Reload Page</button>
+  </div>
 
   <header>
     <div class="header-content">
@@ -204,74 +253,42 @@
     </div>
   </header>
 
-  <!-- Search Bar -->
   <div class="search-bar">
     <input type="text" placeholder="Search videos..." />
     <button>Search</button>
   </div>
 
-  <!-- Main Video Layout -->
-  <div class="container">
-    <div class="main-video">
-      <iframe 
-        id="mainVideo" 
-        src="https://streamtape.com/e/P8mrl6leXbhgZO/" 
-        allowfullscreen>
-      </iframe>
-      <div class="video-info">
-        <div class="video-title" id="videoTitle">Video 01</div>
-        <div class="video-description" id="videoDescription">
-          This video is embedded from Streamtape.
-        </div>
-      </div>
-    </div>
-
-    <div class="sidebar">
-      <h3>Up Next</h3>
-      <div class="video-box active" onclick="changeVideo(this, 'https://streamtape.com/e/P8mrl6leXbhgZO/', 'Video 01', 'This video is embedded from Streamtape.')">
-        Video 01
-      </div>
-      <div class="video-box" onclick="changeVideo(this, 'https://streamtape.com/e/m34vp0kVvgSbYvZ/', 'Video 02', 'This video is embedded from Streamtape.')">
-        Video 02
-      </div>
-      <div class="video-box" onclick="changeVideo(this, 'https://streamtape.com/e/aZ8Plmb3OJCx474/', 'Video 03', 'This video is embedded from Streamtape.')">
-        Video 03
-      </div>
-      <div class="video-box" onclick="changeVideo(this, 'https://streamtape.com/e/rBz8xop0p9ibvgK/', 'Video 04', 'This video is embedded from Streamtape.')">
-        Video 04
-      </div>
-    </div>
-  </div>
-
-  <!-- Video Grid Below -->
   <div class="videos-container">
     <div class="video-card">
       <a href="Page - 01.html">
-        <img class="thumbnail" src="" alt="Video 01 Thumbnail" />
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
         <div class="video-info">
           <h3 class="video-title">Video - 01</h3>
         </div>
       </a>
     </div>
+
     <div class="video-card">
       <a href="Page - 02.html">
-        <img class="thumbnail" src="" alt="Video 02 Thumbnail" />
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
         <div class="video-info">
           <h3 class="video-title">Video - 02</h3>
         </div>
       </a>
     </div>
+
     <div class="video-card">
       <a href="Page - 03.html">
-        <img class="thumbnail" src="" alt="Video 03 Thumbnail" />
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
         <div class="video-info">
           <h3 class="video-title">Video - 03</h3>
         </div>
       </a>
     </div>
+
     <div class="video-card">
       <a href="Page - 04.html">
-        <img class="thumbnail" src="" alt="Video 04 Thumbnail" />
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
         <div class="video-info">
           <h3 class="video-title">Video - 04</h3>
         </div>
@@ -289,21 +306,10 @@
       "https://i0.wp.com/www.badchix.com/wp-content/uploads/2015/07/seen-on-badchix-girls-and-a-hot-summer-are-a-perfect-combo-01.jpg?fit=750%2C421&ssl=1"
     ];
 
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".thumbnail").forEach(img => {
-        const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
-        img.src = randomThumb;
-      });
+    document.querySelectorAll(".thumbnail").forEach(img => {
+      const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
+      img.src = randomThumb;
     });
-
-    function changeVideo(element, src, title, description) {
-      document.getElementById('mainVideo').src = src;
-      document.getElementById('videoTitle').textContent = title;
-      document.getElementById('videoDescription').textContent = description;
-
-      document.querySelectorAll('.video-box').forEach(box => box.classList.remove('active'));
-      element.classList.add('active');
-    }
   </script>
 
 </body>
