@@ -3,52 +3,273 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598">
-  <title>SimpCityLK</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598" />
+  <title>SimpCityLK - Disable Ad Blocker</title>
   <style>
-    /* All your existing styles go here... */
-    /* --- STYLES OMITTED FOR BREVITY --- */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-    .reload-button-container {
-      display: none;
-      text-align: center;
-      margin: 20px;
+    :root {
+      --primary-color: #1877f2;
+      --background-color: #f0f2f5;
+      --text-color: #1c1e21;
+      --subtext-color: #606770;
+      --white: #ffffff;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .reload-button {
-      padding: 10px 20px;
-      background: #1877f2;
-      color: white;
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 15px 30px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .header-content a {
+      display: inline-flex;
+      text-decoration: none;
+      color: var(--white);
+      align-items: center;
+    }
+
+    .site-logo {
+      height: 50px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .header-content span {
+      line-height: 1;
+    }
+
+    .container {
+      display: flex;
+      max-width: 930px;
+      margin: 20px auto 40px;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .main-video {
+      flex: 3;
+      background: var(--white);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .main-video iframe {
+      width: 100%;
+      height: 360px;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 8px;
+      background: black;
+      object-fit: cover;
+    }
+
+    .video-info {
+      margin-top: 10px;
+    }
+
+    .video-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+
+    .video-description {
+      font-size: 14px;
+      color: var(--subtext-color);
+    }
+
+    .sidebar {
+      flex: 1;
+      max-width: 250px;
+      background: var(--white);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .video-box {
       cursor: pointer;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background-color: #eee;
+      border-radius: 6px;
+      font-weight: 700;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      color: var(--text-color);
     }
 
-    .reload-button:hover {
-      background: #145dbf;
+    .video-box:hover {
+      background-color: #e9ebee;
+      color: var(--primary-color);
     }
 
-    /* Invisible bait element for adblock detection */
+    .video-box.active {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+
+    .search-bar {
+      margin: 20px auto;
+      max-width: 600px;
+      display: flex;
+    }
+
+    .search-bar input[type="text"] {
+      flex: 1;
+      padding: 10px 15px;
+      font-size: 16px;
+      border: 2px solid var(--primary-color);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+
+    .search-bar button {
+      background-color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 0 4px 4px 0;
+      color: var(--white);
+      font-weight: 700;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-bar button:hover {
+      background-color: #145dbf;
+    }
+
+    .videos-container {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .video-card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .video-card iframe,
+    .video-card img {
+      width: 100%;
+      height: 180px;
+      border: none;
+      object-fit: cover;
+    }
+
+    .video-info {
+      padding: 12px 15px;
+    }
+
+    .video-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin: 0 0 6px;
+      color: var(--primary-color);
+    }
+
+    .video-channel {
+      font-size: 14px;
+      color: var(--subtext-color);
+    }
+
+    /* Adblock detection bait element (hidden off screen) */
     .ad-banner {
       height: 1px;
       width: 1px;
       position: absolute;
-      top: -999px;
-      left: -999px;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    /* Fullscreen overlay shown if adblock detected */
+    #adblock-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      display: none; /* hidden by default */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      z-index: 9999;
+      text-align: center;
+      padding: 20px;
+      user-select: none;
+    }
+
+    #adblock-overlay button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    #adblock-overlay button:hover {
+      background-color: #145dbf;
     }
   </style>
 </head>
 <body>
 
-  <!-- Adblock detection bait -->
+  <!-- Adblock detection bait element -->
   <div class="adsbygoogle ad-banner"></div>
 
-  <!-- This reload button only shows if ad blocker is detected -->
-  <div id="reloadIfAdblock" class="reload-button-container">
-    <button class="reload-button" onclick="location.reload()">🔄 Reload Page</button>
-    <p style="color: #666; margin-top: 8px;">Looks like you're using an ad blocker. Reload to try again.</p>
+  <!-- Overlay shown if adblock is detected -->
+  <div id="adblock-overlay" role="alert" aria-live="assertive">
+    🚫 Please disable your ad blocker to access this website.<br/>
+    Ads help us keep this site running.<br/>
+    <button onclick="location.reload()">Reload Page</button>
   </div>
 
   <header>
@@ -60,17 +281,59 @@
     </div>
   </header>
 
-  <!-- Page content -->
-  <!-- Your search bar, videos, etc. remain unchanged -->
+  <div class="search-bar">
+    <input type="text" placeholder="Search videos..." />
+    <button>Search</button>
+  </div>
+
+  <div class="videos-container">
+    <div class="video-card">
+      <a href="Page - 01.html">
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <div class="video-info">
+          <h3 class="video-title">Video - 01</h3>
+        </div>
+      </a>
+    </div>
+
+    <div class="video-card">
+      <a href="Page - 02.html">
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <div class="video-info">
+          <h3 class="video-title">Video - 02</h3>
+        </div>
+      </a>
+    </div>
+
+    <div class="video-card">
+      <a href="Page - 03.html">
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <div class="video-info">
+          <h3 class="video-title">Video - 03</h3>
+        </div>
+      </a>
+    </div>
+
+    <div class="video-card">
+      <a href="Page - 04.html">
+        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <div class="video-info">
+          <h3 class="video-title">Video - 04</h3>
+        </div>
+      </a>
+    </div>
+  </div>
 
   <script>
     // Adblock detection
     window.addEventListener('load', function () {
       const bait = document.querySelector('.adsbygoogle');
-      const reloadContainer = document.getElementById('reloadIfAdblock');
+      const overlay = document.getElementById('adblock-overlay');
 
       if (!bait || bait.offsetHeight === 0 || bait.offsetParent === null) {
-        reloadContainer.style.display = 'block';
+        overlay.style.display = 'flex';
+        // Disable page scrolling and interaction behind overlay
+        document.body.style.overflow = 'hidden';
       }
     });
 
@@ -89,5 +352,7 @@
       img.src = randomThumb;
     });
   </script>
+
 </body>
 </html>
+
