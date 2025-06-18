@@ -5,16 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
-
   <style>
     /* Anti-Adblock Overlay Style */
     #adblock-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       background: rgba(0, 0, 0, 0.95);
       color: white;
       z-index: 9999;
@@ -22,12 +19,10 @@
       padding-top: 20%;
       font-family: 'Roboto', sans-serif;
     }
-
     #adblock-overlay h2 {
       font-size: 32px;
       margin-bottom: 20px;
     }
-
     #adblock-overlay p {
       font-size: 18px;
       margin-bottom: 15px;
@@ -116,7 +111,7 @@
   <!-- Adblock Detection Script -->
   <script>
     window.addEventListener('load', function () {
-      // --- Bait Method ---
+      // Create bait element
       const bait = document.createElement('div');
       bait.className = 'adsbox';
       bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-1000px;top:-1000px;';
@@ -136,9 +131,9 @@
         bait.remove();
       }, 200);
 
-      // --- Fake Script Method ---
+      // Fake script method (optional, requires this file on server)
       const adScript = document.createElement('script');
-      adScript.src = '/ads.js'; // This script should exist on your server
+      adScript.src = '/ads.js';  // Make sure this file exists!
       adScript.onerror = function () {
         document.getElementById('adblock-overlay').style.display = 'block';
       };
