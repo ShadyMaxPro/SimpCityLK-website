@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598">
   <title>SimpCityLK</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598">
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
     :root {
       --primary-color: #1877f2;
       --background-color: #E5E4E2;
@@ -18,17 +22,29 @@
       --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
+    body.dark {
+      --background-color: #18191a;
+      --text-color: #e4e6eb;
+      --subtext-color: #b0b3b8;
+      --white: #242526;
+      --shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+    }
+
     body {
       margin: 0;
       font-family: 'Roboto', Arial, sans-serif;
       background-color: var(--background-color);
       color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
     }
 
     header {
       background-color: var(--primary-color);
       color: var(--white);
       padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .header-content {
@@ -39,9 +55,9 @@
     }
 
     .header-content a {
-      display: inline-flex;
       text-decoration: none;
       color: var(--white);
+      display: flex;
       align-items: center;
     }
 
@@ -49,6 +65,19 @@
       height: 50px;
       width: auto;
       border-radius: 6px;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      color: #ffdd57;
     }
 
     .search-bar {
@@ -65,6 +94,8 @@
       border-right: none;
       border-radius: 4px 0 0 4px;
       outline: none;
+      background-color: var(--white);
+      color: var(--text-color);
     }
 
     .search-bar button {
@@ -105,10 +136,6 @@
       transform: translateY(-5px);
     }
 
-    .video-card a {
-      text-decoration: none;
-    }
-
     .video-card iframe,
     .video-card img {
       width: 100%;
@@ -138,6 +165,9 @@
       </a>
       <span>SimpCityLK</span>
     </div>
+    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeIcon">
+      <i class="fas fa-moon"></i>
+    </button>
   </header>
 
   <div class="search-bar">
@@ -146,9 +176,10 @@
   </div>
 
   <div class="videos-container">
+    <!-- Example Video Cards -->
     <div class="video-card">
       <a href="Page - 01.html">
-        <img class="thumbnail" src="https://img.doodcdn.io/splash/fa7rnqolkoacfpey.jpg" alt="Video 01 Thumbnail" />
+        <img src="https://img.doodcdn.io/splash/fa7rnqolkoacfpey.jpg" alt="Video 01 Thumbnail" />
       </a>
       <div class="video-info">
         <h3 class="video-title">Video - 01</h3>
@@ -157,7 +188,7 @@
 
     <div class="video-card">
       <a href="Page - 02.html">
-        <img class="thumbnail" src="https://img.doodcdn.io/snaps/qqyfavea4qfuqdvp.jpg" alt="Video 02 Thumbnail" />
+        <img src="https://img.doodcdn.io/snaps/qqyfavea4qfuqdvp.jpg" alt="Video 02 Thumbnail" />
       </a>
       <div class="video-info">
         <h3 class="video-title">Video - 02</h3>
@@ -166,7 +197,7 @@
 
     <div class="video-card">
       <a href="Page - 03.html">
-        <img class="thumbnail" src="https://img.doodcdn.io/snaps/vm9x6augeorl8jo4.jpg" alt="Video 03 Thumbnail" />
+        <img src="https://img.doodcdn.io/snaps/vm9x6augeorl8jo4.jpg" alt="Video 03 Thumbnail" />
       </a>
       <div class="video-info">
         <h3 class="video-title">Video - 03</h3>
@@ -175,13 +206,40 @@
 
     <div class="video-card">
       <a href="Page - 04.html">
-        <img class="thumbnail" src="https://img.doodcdn.io/snaps/jg5jvh74hovgaqkn.jpg" alt="Video 04 Thumbnail" />
+        <img src="https://img.doodcdn.io/snaps/jg5jvh74hovgaqkn.jpg" alt="Video 04 Thumbnail" />
       </a>
       <div class="video-info">
         <h3 class="video-title">Video - 04</h3>
       </div>
     </div>
   </div>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      updateIcon(isDark);
+    }
+
+    function updateIcon(isDark) {
+      const icon = document.getElementById("themeIcon").firstElementChild;
+      icon.className = isDark ? "fas fa-sun" : "fas fa-moon";
+    }
+
+    // On page load
+    window.onload = function () {
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+        document.body.classList.add("dark");
+        updateIcon(true);
+      } else {
+        updateIcon(false);
+      }
+    };
+  </script>
 
 </body>
 </html>
