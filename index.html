@@ -5,37 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    #adblock-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.95);
-      color: white;
-      z-index: 9999;
-      text-align: center;
-      padding-top: 20%;
-      font-family: 'Roboto', sans-serif;
-    }
-    #adblock-overlay h2 {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-    #adblock-overlay p {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-  </style>
 </head>
 <body>
-
-  <!-- Anti-Adblock Overlay -->
-  <div id="adblock-overlay">
-    <h2>Ad Blocker Detected</h2>
-    <p>We rely on ads to keep SimpCityLK running.</p>
-    <p><strong>Please disable your ad blocker and refresh the page manually.</strong></p>
-  </div>
 
   <!-- Site Header -->
   <header>
@@ -104,59 +75,6 @@
         const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
         img.src = randomThumb;
       });
-    });
-  </script>
-
-  <!-- Adblock Detection -->
-  <script>
-    window.addEventListener('load', function () {
-      let blocked = false;
-
-      // Create bait element
-      const bait = document.createElement('div');
-      bait.className = 'testbait';
-      bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-9999px;top:-9999px;';
-      document.body.appendChild(bait);
-
-      const isBaitBlocked = () => {
-        return (
-          !bait ||
-          bait.offsetHeight === 0 ||
-          bait.offsetParent === null ||
-          getComputedStyle(bait).display === 'none' ||
-          getComputedStyle(bait).visibility === 'hidden'
-        );
-      };
-
-      // Load external tracker
-      const fakeScript = document.createElement('script');
-      fakeScript.src = 'assets/tracker-lib.js';
-      fakeScript.onerror = () => {
-        blocked = true;
-        showOverlay();
-      };
-      document.body.appendChild(fakeScript);
-
-      // Final check
-      setTimeout(() => {
-        if (isBaitBlocked()) {
-          blocked = true;
-        }
-
-        if (!document.getElementById('tracker-confirm')) {
-          blocked = true;
-        }
-
-        if (blocked) {
-          showOverlay();
-        }
-
-        bait.remove();
-      }, 300);
-
-      function showOverlay() {
-        document.getElementById('adblock-overlay').style.display = 'block';
-      }
     });
   </script>
 
