@@ -10,15 +10,12 @@
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
     :root {
-      :root {
-  --primary-color: #1877f2;
-  --background-color: #E5E4E2; /* changed from #f0f2f5 */
-  --text-color: #1c1e21;
-  --subtext-color: #606770;
-  --white: #ffffff;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
+      --primary-color: #1877f2;
+      --background-color: #E5E4E2;
+      --text-color: #1c1e21;
+      --subtext-color: #606770;
+      --white: #ffffff;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     body {
@@ -52,90 +49,6 @@
       height: 50px;
       width: auto;
       border-radius: 6px;
-    }
-
-    .container {
-      display: flex;
-      max-width: 930px;
-      margin: 20px auto 40px;
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .main-video {
-      flex: 3;
-      background: var(--white);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-    }
-
-    .main-video iframe {
-      width: 100%;
-      height: 360px;
-      border: none;
-      border-radius: 8px;
-      background: black;
-      object-fit: cover;
-    }
-
-    .video-info {
-      margin-top: 10px;
-      padding: 12px 15px;
-    }
-
-    .video-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin: 0 0 6px;
-      color: var(--primary-color);
-    }
-
-    .video-description {
-      font-size: 14px;
-      color: var(--subtext-color);
-    }
-
-    .sidebar {
-      flex: 1;
-      max-width: 250px;
-      background: var(--white);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      max-height: 600px;
-      overflow-y: auto;
-    }
-
-    .sidebar h3 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .video-box {
-      cursor: pointer;
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      background-color: #eee;
-      border-radius: 6px;
-      font-weight: 700;
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      user-select: none;
-      color: var(--text-color);
-    }
-
-    .video-box:hover {
-      background-color: #e9ebee;
-      color: var(--primary-color);
-    }
-
-    .video-box.active {
-      background-color: var(--primary-color);
-      color: var(--white);
     }
 
     .search-bar {
@@ -203,6 +116,17 @@
       border: none;
       object-fit: cover;
     }
+
+    .video-info {
+      padding: 12px 15px;
+    }
+
+    .video-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -224,7 +148,7 @@
   <div class="videos-container">
     <div class="video-card">
       <a href="Page - 01.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <img class="thumbnail" src="https://img.doodcdn.io/splash/fa7rnqolkoacfpey.jpg" alt="Video 01 Thumbnail" />
       </a>
       <div class="video-info">
         <h3 class="video-title">Video - 01</h3>
@@ -233,7 +157,7 @@
 
     <div class="video-card">
       <a href="Page - 02.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <img class="thumbnail" src="https://img.doodcdn.io/snaps/qqyfavea4qfuqdvp.jpg" alt="Video 02 Thumbnail" />
       </a>
       <div class="video-info">
         <h3 class="video-title">Video - 02</h3>
@@ -242,7 +166,7 @@
 
     <div class="video-card">
       <a href="Page - 03.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <img class="thumbnail" src="https://img.doodcdn.io/snaps/vm9x6augeorl8jo4.jpg" alt="Video 03 Thumbnail" />
       </a>
       <div class="video-info">
         <h3 class="video-title">Video - 03</h3>
@@ -251,29 +175,13 @@
 
     <div class="video-card">
       <a href="Page - 04.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
+        <img class="thumbnail" src="https://img.doodcdn.io/snaps/jg5jvh74hovgaqkn.jpg" alt="Video 04 Thumbnail" />
       </a>
       <div class="video-info">
         <h3 class="video-title">Video - 04</h3>
       </div>
     </div>
   </div>
-
-  <script>
-    const thumbnails = [
-      "https://img.doodcdn.io/splash/fa7rnqolkoacfpey.jpg",
-      "https://img.doodcdn.io/snaps/qqyfavea4qfuqdvp.jpg",
-      "https://img.doodcdn.io/snaps/vm9x6augeorl8jo4.jpg",
-      "https://img.doodcdn.io/snaps/jg5jvh74hovgaqkn.jpg",
-      "https://images.news18.com/ibnlive/uploads/2023/05/318599667_513199807509111_3144331053555681340_n-168371332416x9.jpg?impolicy=website&width=640&height=360",
-      "https://i0.wp.com/www.badchix.com/wp-content/uploads/2015/07/seen-on-badchix-girls-and-a-hot-summer-are-a-perfect-combo-01.jpg?fit=750%2C421&ssl=1"
-    ];
-
-    document.querySelectorAll(".thumbnail").forEach(img => {
-      const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
-      img.src = randomThumb;
-    });
-  </script>
 
 </body>
 </html>
