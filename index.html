@@ -148,6 +148,37 @@
   document.body.appendChild(adScript);
 </script>
 
+  <script>
+  // Bait method
+  const bait = document.createElement('div');
+  bait.className = 'adsbox';
+  bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-1000px;top:-1000px;';
+  document.body.appendChild(bait);
+
+  setTimeout(function () {
+    const blocked =
+      !bait ||
+      bait.offsetHeight === 0 ||
+      bait.offsetParent === null ||
+      getComputedStyle(bait).display === 'none' ||
+      getComputedStyle(bait).visibility === 'hidden';
+
+    if (blocked) {
+      document.getElementById('adblock-overlay').style.display = 'block';
+    }
+    bait.remove();
+  }, 200);
+
+  // Fake script method
+  const adScript = document.createElement('script');
+  adScript.src = '/ads.js';
+  adScript.onerror = function () {
+    document.getElementById('adblock-overlay').style.display = 'block';
+  };
+  document.body.appendChild(adScript);
+</script>
+
+
 
 </body>
 </html>
