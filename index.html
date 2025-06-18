@@ -6,7 +6,6 @@
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Anti-Adblock Overlay Style */
     #adblock-overlay {
       display: none;
       position: fixed;
@@ -56,6 +55,7 @@
 
   <!-- Video Cards -->
   <div class="videos-container">
+    <!-- Repeat these as needed -->
     <div class="video-card">
       <a href="Page - 01.html">
         <img class="thumbnail" src="" alt="Video 01 Thumbnail" />
@@ -64,30 +64,7 @@
         </div>
       </a>
     </div>
-    <div class="video-card">
-      <a href="Page - 02.html">
-        <img class="thumbnail" src="" alt="Video 02 Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 02</h3>
-        </div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="Page - 03.html">
-        <img class="thumbnail" src="" alt="Video 03 Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 03</h3>
-        </div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="Page - 04.html">
-        <img class="thumbnail" src="" alt="Video 04 Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 04</h3>
-        </div>
-      </a>
-    </div>
+    <!-- More cards... -->
   </div>
 
   <!-- Thumbnail Randomizer -->
@@ -108,38 +85,59 @@
     });
   </script>
 
-  <!-- Adblock Detection Script -->
+  <!-- Adblock Detection -->
   <script>
     window.addEventListener('load', function () {
-      // Create bait element
+      let blocked = false;
+
+      // Rename bait to avoid 'ads' keyword
       const bait = document.createElement('div');
-      bait.className = 'adsbox';
-      bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-1000px;top:-1000px;';
+      bait.className = 'testbait';
+      bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-9999px;top:-9999px;';
       document.body.appendChild(bait);
 
-      setTimeout(function () {
-        const blocked =
+      // Detection based on style
+      const baitBlocked = () => {
+        return (
           !bait ||
           bait.offsetHeight === 0 ||
           bait.offsetParent === null ||
           getComputedStyle(bait).display === 'none' ||
-          getComputedStyle(bait).visibility === 'hidden';
+          getComputedStyle(bait).visibility === 'hidden'
+        );
+      };
+
+      // Inject fake script with non-ad name
+      const fakeScript = document.createElement('script');
+      fakeScript.src = '/tracker-lib.js'; // must exist
+      fakeScript.onerror = () => {
+        blocked = true;
+        showOverlay();
+      };
+      document.body.appendChild(fakeScript);
+
+      // Add timeout test
+      setTimeout(() => {
+        if (baitBlocked()) {
+          blocked = true;
+        }
+
+        // Look for script marker from tracker-lib.js
+        if (!document.getElementById('tracker-confirm')) {
+          blocked = true;
+        }
 
         if (blocked) {
-          document.getElementById('adblock-overlay').style.display = 'block';
+          showOverlay();
         }
-        bait.remove();
-      }, 200);
 
-      // Fake script method (optional, requires this file on server)
-      const adScript = document.createElement('script');
-      adScript.src = '/ads.js';  // Make sure this file exists!
-      adScript.onerror = function () {
+        bait.remove();
+      }, 300);
+
+      function showOverlay() {
         document.getElementById('adblock-overlay').style.display = 'block';
-      };
-      document.body.appendChild(adScript);
+      }
     });
   </script>
-
 </body>
 </html>
