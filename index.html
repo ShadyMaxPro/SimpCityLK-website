@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -54,12 +15,14 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
+      z-index: 10000;
       justify-content: center;
       align-items: center;
       color: white;
       font-family: Arial, sans-serif;
       text-align: center;
+      flex-direction: column;
+      padding: 20px;
     }
     .adblock-message {
       background: #333;
@@ -80,6 +43,7 @@
       cursor: pointer;
       font-size: 16px;
       margin-top: 10px;
+      transition: background-color 0.3s ease;
     }
     .adblock-message button:hover {
       background: #cc0000;
@@ -141,7 +105,7 @@
   </div>
 
   <!-- Ad-blocker Detection Overlay -->
-  <div id="adblock-overlay" class="adblock-overlay">
+  <div id="adblock-overlay" class="adblock-overlay" role="alert" aria-live="assertive" aria-modal="true" tabindex="-1">
     <div class="adblock-message">
       <h2>Ad-Blocker Detected</h2>
       <p>We rely on ads to keep SimpCityLK free. Please disable your ad-blocker to continue enjoying our content.</p>
@@ -151,7 +115,7 @@
 
   <!-- Scripts -->
   <script>
-    // Thumbnail Randomizer
+    // Thumbnail Randomizer - sets random thumbnails on page load
     document.addEventListener('DOMContentLoaded', function () {
       const thumbnails = [
         "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
@@ -166,39 +130,54 @@
         img.src = randomThumb;
       });
 
-      // Trigger ad-blocker check after thumbnails are set
+      // Run ad-blocker check on page load
       checkAdBlocker();
     });
 
-    // Ad-blocker Detection
+    // Enhanced Ad-blocker Detection Function
     function checkAdBlocker() {
       const overlay = document.getElementById('adblock-overlay');
-      // Create a bait element with common ad-related class names
+
+      // Create bait element with common ad-related class names
       const bait = document.createElement('div');
-      bait.setAttribute('class', 'ad ads advertisement banner-ad');
-      bait.style.display = 'none';
+      bait.className = 'ad ads advertisement banner-ad';
+      // Hide bait off-screen but keep it in DOM
+      bait.style.position = 'absolute';
+      bait.style.left = '-9999px';
+      bait.style.height = '1px';
+      bait.style.width = '1px';
+      bait.style.top = '0';
       document.body.appendChild(bait);
 
-      // Attempt to fetch a bait ad resource
-      fetch('/ads.js', { method: 'HEAD', mode: 'no-cors' })
-        .then(() => {
-          // Ad resource loaded, assume no ad-blocker
-          overlay.style.display = 'none';
-          bait.remove();
-        })
-        .catch(() => {
-          // Ad resource blocked, show overlay
-          overlay.style.display = 'flex';
-          bait.remove();
-        });
+      // Flag to track if image load fails
+      let imgBlocked = false;
 
-      // Fallback: Check if bait element is blocked by display property
+      // Create a dummy image to test ad resource blocking
+      const testImg = new Image();
+      testImg.src = '/ads.js'; // Typical ad resource path (adjust if needed)
+      testImg.onerror = () => {
+        imgBlocked = true;
+      };
+
+      // Check bait element after a short delay to allow ad blockers to act
       setTimeout(() => {
-        if (window.getComputedStyle(bait).display === 'none' && !overlay.style.display) {
+        const baitBlocked =
+          !document.body.contains(bait) ||
+          window.getComputedStyle(bait).display === 'none' ||
+          bait.offsetParent === null;
+
+        // If either bait is blocked or image failed to load, show overlay
+        if (baitBlocked || imgBlocked) {
           overlay.style.display = 'flex';
+          // Optionally, trap focus inside overlay for accessibility
+          overlay.focus();
+        } else {
+          overlay.style.display = 'none';
         }
+
+        // Clean up bait element
         bait.remove();
-      }, 100);
+      }, 150);
     }
   </script>
 
