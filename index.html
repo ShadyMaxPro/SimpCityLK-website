@@ -6,24 +6,74 @@
   <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598" />
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Anti-Adblock Overlay Style */
+    #adblock-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      z-index: 9999;
+      text-align: center;
+      padding-top: 20%;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #adblock-overlay h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    #adblock-overlay p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    #adblock-overlay button {
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      background-color: red;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+  </style>
+
 </head>
 <body>
 
-  <!-- JuicyAds v3.0 - NEW AD ZONE -->
-  <div style="max-width: 930px; margin: 15px auto; text-align: center;">
-    <script type="text/javascript" data-cfasync="false" async src="https://poweredby.jads.co/js/jads.js"></script>
-    <ins id="1094092" data-width="300" data-height="250"></ins>
-    <script type="text/javascript" data-cfasync="false" async>
-      (adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1094092});
-    </script>
+  <!-- Anti-Adblock Overlay -->
+  <div id="adblock-overlay">
+    <h2>Ad Blocker Detected</h2>
+    <p>We rely on ads to keep SimpCityLK running. Please disable your ad blocker to continue.</p>
+    <button onclick="location.reload()">I Disabled AdBlocker</button>
   </div>
-  <!-- JuicyAds END -->
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-    /* ... rest of your CSS unchanged ... */
-  </style>
+  <script>
+    // Simple Anti-Adblock Detection
+    const bait = document.createElement('div');
+    bait.className = 'adsbox';
+    bait.style.height = '1px';
+    bait.style.position = 'absolute';
+    bait.style.top = '-1000px';
+    document.body.appendChild(bait);
 
+    window.setTimeout(() => {
+      if (!bait || bait.offsetHeight === 0) {
+        document.getElementById('adblock-overlay').style.display = 'block';
+      }
+      bait.remove();
+    }, 100);
+  </script>
+
+  <!-- Your existing content starts below -->
   <header>
     <div class="header-content">
       <a href="index.html">
@@ -47,7 +97,6 @@
         </div>
       </a>
     </div>
-
     <div class="video-card">
       <a href="Page - 02.html">
         <img class="thumbnail" src="" alt="Video Thumbnail" />
@@ -56,7 +105,6 @@
         </div>
       </a>
     </div>
-
     <div class="video-card">
       <a href="Page - 03.html">
         <img class="thumbnail" src="" alt="Video Thumbnail" />
@@ -65,7 +113,6 @@
         </div>
       </a>
     </div>
-
     <div class="video-card">
       <a href="Page - 04.html">
         <img class="thumbnail" src="" alt="Video Thumbnail" />
