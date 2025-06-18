@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598" />
   <title>SimpCityLK - Disable Ad Blocker</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
@@ -64,175 +63,26 @@
       padding: 0 20px;
     }
 
-    .main-video {
-      flex: 3;
-      background: var(--white);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-    }
+    /* Your other styles omitted for brevity... keep your existing CSS here */
 
-    .main-video iframe {
-      width: 100%;
-      height: 360px;
-      border: none;
-      border-radius: 8px;
-      background: black;
-      object-fit: cover;
-    }
-
-    .video-info {
-      margin-top: 10px;
-    }
-
-    .video-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 5px;
-      color: var(--primary-color);
-    }
-
-    .video-description {
-      font-size: 14px;
-      color: var(--subtext-color);
-    }
-
-    .sidebar {
-      flex: 1;
-      max-width: 250px;
-      background: var(--white);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      max-height: 600px;
-      overflow-y: auto;
-    }
-
-    .sidebar h3 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .video-box {
-      cursor: pointer;
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      background-color: #eee;
-      border-radius: 6px;
-      font-weight: 700;
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      user-select: none;
-      color: var(--text-color);
-    }
-
-    .video-box:hover {
-      background-color: #e9ebee;
-      color: var(--primary-color);
-    }
-
-    .video-box.active {
-      background-color: var(--primary-color);
-      color: var(--white);
-    }
-
-    .search-bar {
-      margin: 20px auto;
-      max-width: 600px;
-      display: flex;
-    }
-
-    .search-bar input[type="text"] {
-      flex: 1;
-      padding: 10px 15px;
-      font-size: 16px;
-      border: 2px solid var(--primary-color);
-      border-right: none;
-      border-radius: 4px 0 0 4px;
-      outline: none;
-    }
-
-    .search-bar button {
-      background-color: var(--primary-color);
-      border: 2px solid var(--primary-color);
-      border-radius: 0 4px 4px 0;
-      color: var(--white);
-      font-weight: 700;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .search-bar button:hover {
-      background-color: #145dbf;
-    }
-
-    .videos-container {
-      max-width: 1200px;
-      margin: 0 auto 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .video-card {
-      background: var(--white);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s ease;
-    }
-
-    .video-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .video-card iframe,
-    .video-card img {
-      width: 100%;
-      height: 180px;
-      border: none;
-      object-fit: cover;
-    }
-
-    .video-info {
-      padding: 12px 15px;
-    }
-
-    .video-title {
-      font-weight: 700;
-      font-size: 16px;
-      margin: 0 0 6px;
-      color: var(--primary-color);
-    }
-
-    .video-channel {
-      font-size: 14px;
-      color: var(--subtext-color);
-    }
-
-    /* Adblock detection bait element (hidden off screen) */
-    .ad-banner {
-      height: 1px;
+    /* --- AD BLOCK DETECTION Bait --- */
+    #ad-bait {
       width: 1px;
+      height: 1px;
       position: absolute;
-      top: -9999px;
       left: -9999px;
+      top: -9999px;
+      /* Common ad-related classes often blocked */
+      class: adsbox adsbygoogle ad-banner ads ad-placement adsense;
     }
 
-    /* Fullscreen overlay shown if adblock detected */
+    /* Overlay when adblock detected */
     #adblock-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.85);
       color: white;
-      display: none; /* hidden by default */
+      display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -263,9 +113,9 @@
 <body>
 
   <!-- Adblock detection bait element -->
-  <div class="adsbygoogle ad-banner"></div>
+  <div id="ad-bait" class="adsbox adsbygoogle ad-banner ads ad-placement adsense"></div>
 
-  <!-- Overlay shown if adblock is detected -->
+  <!-- Overlay shown if adblock detected -->
   <div id="adblock-overlay" role="alert" aria-live="assertive">
     🚫 Please disable your ad blocker to access this website.<br/>
     Ads help us keep this site running.<br/>
@@ -281,78 +131,41 @@
     </div>
   </header>
 
-  <div class="search-bar">
-    <input type="text" placeholder="Search videos..." />
-    <button>Search</button>
-  </div>
-
-  <div class="videos-container">
-    <div class="video-card">
-      <a href="Page - 01.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 01</h3>
-        </div>
-      </a>
-    </div>
-
-    <div class="video-card">
-      <a href="Page - 02.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 02</h3>
-        </div>
-      </a>
-    </div>
-
-    <div class="video-card">
-      <a href="Page - 03.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 03</h3>
-        </div>
-      </a>
-    </div>
-
-    <div class="video-card">
-      <a href="Page - 04.html">
-        <img class="thumbnail" src="" alt="Video Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 04</h3>
-        </div>
-      </a>
-    </div>
-  </div>
+  <!-- Your content continues here... -->
 
   <script>
-    // Adblock detection
-    window.addEventListener('load', function () {
-      const bait = document.querySelector('.adsbygoogle');
+    // Improved Adblock detection function
+    function detectAdBlock() {
+      const bait = document.getElementById('ad-bait');
       const overlay = document.getElementById('adblock-overlay');
 
-      if (!bait || bait.offsetHeight === 0 || bait.offsetParent === null) {
+      // If bait element is missing, or has zero height/width, or display:none or removed by adblocker
+      const baitStyles = window.getComputedStyle(bait);
+      if (
+        !bait ||
+        bait.offsetParent === null || // hidden or removed
+        bait.offsetHeight === 0 ||
+        bait.offsetWidth === 0 ||
+        baitStyles.getPropertyValue('display') === 'none' ||
+        baitStyles.getPropertyValue('visibility') === 'hidden'
+      ) {
+        // Show overlay blocking access
         overlay.style.display = 'flex';
-        // Disable page scrolling and interaction behind overlay
+        // Prevent scrolling behind overlay
         document.body.style.overflow = 'hidden';
+        return true;
       }
+      return false;
+    }
+
+    // Wait a moment to allow adblockers to hide/remove bait element
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        detectAdBlock();
+      }, 100); // 100ms delay to let ad blockers act
     });
 
-    // Random thumbnails
-    const thumbnails = [
-      "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
-      "https://c4.wallpaperflare.com/wallpaper/740/311/655/the-sun-water-sea-girl-wallpaper-preview.jpg",
-      "https://c4.wallpaperflare.com/wallpaper/814/529/162/sea-bikini-vacation-ocean-wallpaper-preview.jpg",
-      "https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/HZHnL4R6xj1hrqjd5/videoblocks-bikini-beach-woman-happy-smiling-playful-cheerful-having-fun-dancing-around-bikini-girl-wearing-sunglasses-excited-and-joyful-beautiful-sexy-mixed-race-woman-having-fun-on-summer-travel-vacation_rnwnkc90b_thumbnail-1080_15.png",
-      "https://images.news18.com/ibnlive/uploads/2023/05/318599667_513199807509111_3144331053555681340_n-168371332416x9.jpg?impolicy=website&width=640&height=360",
-      "https://i0.wp.com/www.badchix.com/wp-content/uploads/2015/07/seen-on-badchix-girls-and-a-hot-summer-are-a-perfect-combo-01.jpg?fit=750%2C421&ssl=1"
-    ];
-
-    document.querySelectorAll(".thumbnail").forEach(img => {
-      const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
-      img.src = randomThumb;
-    });
+    // Your existing thumbnail randomizer code (if any) goes here
   </script>
-
 </body>
 </html>
-
