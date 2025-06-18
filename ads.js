@@ -1,51 +1,34 @@
 function checkAdBlocker() {
   const overlay = document.getElementById('adblock-overlay');
 
-  // Create bait element with common ad-related class names
   const bait = document.createElement('div');
   bait.className = 'ad ads advertisement banner-ad';
   bait.style.position = 'absolute';
-  bait.style.left = '-9999px'; // hide off-screen
+  bait.style.left = '-9999px';
   bait.style.height = '1px';
   bait.style.width = '1px';
+  bait.style.top = '0';
   document.body.appendChild(bait);
 
-  // Check if bait element is blocked by style or removal
+  let imgBlocked = false;
+  const testImg = new Image();
+  testImg.src = '/ads.js';
+  testImg.onerror = () => { imgBlocked = true; };
+
   setTimeout(() => {
-    const baitBlocked = !document.body.contains(bait) || window.getComputedStyle(bait).display === 'none' || bait.offsetParent === null;
+    const baitBlocked =
+      !document.body.contains(bait) ||
+      window.getComputedStyle(bait).display === 'none' ||
+      bait.offsetParent === null;
 
-    // Attempt to load a dummy ad resource
-    const testImg = new Image();
-    testImg.src = '/ads.js'; // common ad resource path, likely blocked
-    let imgBlocked = false;
-    testImg.onerror = () => { imgBlocked = true; showOverlay(); };
-    testImg.onload = () => {
-      if (baitBlocked) {
-        showOverlay();
-      } else {
-        overlay.style.display = 'none';
-      }
-      bait.remove();
-    };
+    if (baitBlocked || imgBlocked) {
+      overlay.style.display = 'flex';
+      overlay.focus();
+    } else {
+      // Ad blocker is gone, reload page to fully enable ads and content
+      location.reload();
+    }
 
-    // Fallback if image doesn't load event fires late
-    setTimeout(() => {
-      if (imgBlocked || baitBlocked) {
-        showOverlay();
-      } else {
-        overlay.style.display = 'none';
-      }
-      bait.remove();
-    }, 1500);
-
-  }, 100);
-
-  function showOverlay() {
-    overlay.style.display = 'flex';
-  }
+    bait.remove();
+  }, 150);
 }
-
-// Run on page load
-document.addEventListener('DOMContentLoaded', () => {
-  checkAdBlocker();
-});
