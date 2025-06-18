@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SimpCityLK - Disable Ad Blocker</title>
+  <title>SimpCityLK</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -21,7 +21,6 @@
       font-family: 'Roboto', Arial, sans-serif;
       background-color: var(--background-color);
       color: var(--text-color);
-      overflow-x: hidden;
     }
 
     header {
@@ -33,9 +32,9 @@
     .header-content {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 10px;
       font-size: 24px;
-      font-weight: 500;
+      font-weight: 700;
     }
 
     .header-content a {
@@ -51,58 +50,106 @@
       border-radius: 6px;
     }
 
-    .header-content span {
-      line-height: 1;
-    }
-
-    .container {
+    .search-bar {
+      margin: 20px auto;
+      max-width: 600px;
       display: flex;
-      max-width: 930px;
-      margin: 20px auto 40px;
-      gap: 20px;
       padding: 0 20px;
     }
 
-    /* Your other styles omitted for brevity... keep your existing CSS here */
+    .search-bar input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid var(--primary-color);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
 
-    /* --- AD BLOCK DETECTION Bait --- */
-    #ad-bait {
+    .search-bar button {
+      background-color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 0 4px 4px 0;
+      color: var(--white);
+      font-weight: 700;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    .videos-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .video-card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .video-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .video-info {
+      padding: 12px 15px;
+    }
+
+    .video-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin: 0;
+      color: var(--primary-color);
+    }
+
+    /* Adblock Detection Bait */
+    .ad-banner {
       width: 1px;
       height: 1px;
       position: absolute;
       left: -9999px;
       top: -9999px;
-      /* Common ad-related classes often blocked */
-      class: adsbox adsbygoogle ad-banner ads ad-placement adsense;
     }
 
-    /* Overlay when adblock detected */
+    /* Adblock Warning Overlay */
     #adblock-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85);
-      color: white;
       display: none;
-      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      z-index: 9999;
       justify-content: center;
       align-items: center;
-      font-size: 24px;
-      z-index: 9999;
+      flex-direction: column;
       text-align: center;
       padding: 20px;
-      user-select: none;
     }
 
     #adblock-overlay button {
       margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 18px;
-      cursor: pointer;
-      background-color: var(--primary-color);
+      background: var(--primary-color);
       border: none;
-      border-radius: 5px;
       color: white;
-      transition: background-color 0.3s ease;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
     #adblock-overlay button:hover {
@@ -112,60 +159,77 @@
 </head>
 <body>
 
-  <!-- Adblock detection bait element -->
-  <div id="ad-bait" class="adsbox adsbygoogle ad-banner ads ad-placement adsense"></div>
+  <!-- Adblock detection bait -->
+  <div class="ad-banner adsbygoogle" id="ad-bait"></div>
 
-  <!-- Overlay shown if adblock detected -->
-  <div id="adblock-overlay" role="alert" aria-live="assertive">
-    🚫 Please disable your ad blocker to access this website.<br/>
-    Ads help us keep this site running.<br/>
+  <!-- Adblock overlay -->
+  <div id="adblock-overlay">
+    <h2>Ad Blocker Detected</h2>
+    <p>Please disable your ad blocker and reload the page to continue using SimpCityLK.</p>
     <button onclick="location.reload()">Reload Page</button>
   </div>
 
   <header>
     <div class="header-content">
-      <a href="index.html">
-        <img src="photo_2025-05-23_11-07-14.jpg" alt="SimpCityLK Logo" class="site-logo" />
-      </a>
+      <a href="#"><img src="photo_2025-05-23_11-07-14.jpg" class="site-logo" alt="Logo"></a>
       <span>SimpCityLK</span>
     </div>
   </header>
 
-  <!-- Your content continues here... -->
+  <div class="search-bar">
+    <input type="text" placeholder="Search videos..." />
+    <button>Search</button>
+  </div>
+
+  <div class="videos-container">
+    <div class="video-card">
+      <a href="Page - 01.html">
+        <img src="https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg" alt="Video 01">
+        <div class="video-info">
+          <p class="video-title">Video 01</p>
+        </div>
+      </a>
+    </div>
+    <div class="video-card">
+      <a href="Page - 02.html">
+        <img src="https://c4.wallpaperflare.com/wallpaper/740/311/655/the-sun-water-sea-girl-wallpaper-preview.jpg" alt="Video 02">
+        <div class="video-info">
+          <p class="video-title">Video 02</p>
+        </div>
+      </a>
+    </div>
+    <div class="video-card">
+      <a href="Page - 03.html">
+        <img src="https://c4.wallpaperflare.com/wallpaper/814/529/162/sea-bikini-vacation-ocean-wallpaper-preview.jpg" alt="Video 03">
+        <div class="video-info">
+          <p class="video-title">Video 03</p>
+        </div>
+      </a>
+    </div>
+    <div class="video-card">
+      <a href="Page - 04.html">
+        <img src="https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/HZHnL4R6xj1hrqjd5/videoblocks-bikini-beach-woman-happy-smiling-playful-cheerful-having-fun-dancing-around-bikini-girl-wearing-sunglasses-excited-and-joyful-beautiful-sexy-mixed-race-woman-having-fun-on-summer-travel-vacation_rnwnkc90b_thumbnail-1080_15.png" alt="Video 04">
+        <div class="video-info">
+          <p class="video-title">Video 04</p>
+        </div>
+      </a>
+    </div>
+  </div>
 
   <script>
-    // Improved Adblock detection function
-    function detectAdBlock() {
-      const bait = document.getElementById('ad-bait');
-      const overlay = document.getElementById('adblock-overlay');
-
-      // If bait element is missing, or has zero height/width, or display:none or removed by adblocker
-      const baitStyles = window.getComputedStyle(bait);
-      if (
-        !bait ||
-        bait.offsetParent === null || // hidden or removed
-        bait.offsetHeight === 0 ||
-        bait.offsetWidth === 0 ||
-        baitStyles.getPropertyValue('display') === 'none' ||
-        baitStyles.getPropertyValue('visibility') === 'hidden'
-      ) {
-        // Show overlay blocking access
-        overlay.style.display = 'flex';
-        // Prevent scrolling behind overlay
-        document.body.style.overflow = 'hidden';
-        return true;
-      }
-      return false;
-    }
-
-    // Wait a moment to allow adblockers to hide/remove bait element
-    window.addEventListener('load', () => {
+    // Run adblock detection after page loads
+    window.addEventListener("load", function () {
       setTimeout(() => {
-        detectAdBlock();
-      }, 100); // 100ms delay to let ad blockers act
-    });
+        const bait = document.getElementById("ad-bait");
+        const overlay = document.getElementById("adblock-overlay");
 
-    // Your existing thumbnail randomizer code (if any) goes here
+        if (!bait || bait.offsetHeight === 0 || bait.offsetWidth === 0) {
+          overlay.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        }
+      }, 200);
+    });
   </script>
+
 </body>
 </html>
