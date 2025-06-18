@@ -5,8 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #111;
+      color: #fff;
+    }
+    .site-logo {
+      height: 40px;
+      margin-right: 10px;
+    }
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      background: #f4f4f4;
+    }
+    .search-bar input {
+      padding: 8px;
+      width: 60%;
+      max-width: 400px;
+      margin-right: 10px;
+    }
+    .videos-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      padding: 20px;
+    }
+    .video-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      background: #fff;
+    }
+    .thumbnail {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .video-title {
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- AdBlock Detection Trap -->
+  <div id="adblock-check" style="height: 1px; width: 1px; position: absolute; left: -9999px;">
+    <script>
+      document.write("adblock_check_passed");
+    </script>
+  </div>
 
   <!-- Site Header -->
   <header>
@@ -78,24 +137,22 @@
     });
   </script>
 
-  <!-- Minimal Ad Block Detection Script -->
+  <!-- AdBlock Detection Handler -->
   <script>
-    // Create a bait element that ad blockers usually block
-    const adBait = document.createElement('div');
-    adBait.className = 'adsbox';
-    adBait.style.position = 'absolute';
-    adBait.style.left = '-9999px';
-    document.body.appendChild(adBait);
+    window.addEventListener('load', function () {
+      const adCheckDiv = document.getElementById('adblock-check');
+      const adBlocked = !adCheckDiv || adCheckDiv.innerHTML.indexOf('adblock_check_passed') === -1;
 
-    window.setTimeout(() => {
-      if (adBait.offsetHeight === 0 || adBait.offsetParent === null) {
-        // Ad blocker detected
-        alert('We have detected that you are using an ad blocker. Please disable it to support our site.');
-        // Optionally, block content instead of alert:
-        // document.body.innerHTML = '<h1>Please disable your ad blocker to view this site.</h1>';
+      if (adBlocked) {
+        document.body.innerHTML = `
+          <div style="text-align: center; padding: 50px; font-family: sans-serif;">
+            <h1>Ad Blocker Detected</h1>
+            <p>Please disable your ad blocker to continue using SimpCityLK.</p>
+            <p>We rely on ads to keep our content free and alive!</p>
+          </div>
+        `;
       }
-      adBait.remove();
-    }, 100);
+    });
   </script>
 
 </body>
