@@ -5,54 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SimpCityLK</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Ad-blocker message styling */
-    .adblock-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 10000;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      flex-direction: column;
-      padding: 20px;
-    }
-    .adblock-message {
-      background: #333;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      margin: 20px;
-    }
-    .adblock-message h2 {
-      margin-top: 0;
-    }
-    .adblock-message button {
-      background: #ff4444;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-    }
-    .adblock-message button:hover {
-      background: #cc0000;
-    }
-  </style>
 </head>
 <body>
 
-  <!-- Site Header -->
+  <!-- Header -->
   <header>
     <div class="header-content">
       <a href="index.html">
@@ -68,7 +24,7 @@
     <button>Search</button>
   </div>
 
-  <!-- Video Cards -->
+  <!-- Video Cards Grid -->
   <div class="videos-container">
     <div class="video-card">
       <a href="Page - 01.html">
@@ -104,7 +60,7 @@
     </div>
   </div>
 
-  <!-- Ad-blocker Detection Overlay -->
+  <!-- Ad-blocker Detection -->
   <div id="adblock-overlay" class="adblock-overlay" role="alert" aria-live="assertive" aria-modal="true" tabindex="-1">
     <div class="adblock-message">
       <h2>Ad-Blocker Detected</h2>
@@ -113,16 +69,15 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script>
-    // Thumbnail Randomizer - sets random thumbnails on page load
+    // Random thumbnails
     document.addEventListener('DOMContentLoaded', function () {
       const thumbnails = [
         "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
         "https://c4.wallpaperflare.com/wallpaper/740/311/655/the-sun-water-sea-girl-wallpaper-preview.jpg",
         "https://c4.wallpaperflare.com/wallpaper/814/529/162/sea-bikini-vacation-ocean-wallpaper-preview.jpg",
         "https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/HZHnL4R6xj1hrqjd5/videoblocks-bikini-beach-woman-happy-smiling-playful-cheerful-having-fun-dancing-around-bikini-girl-wearing-sunglasses-excited-and-joyful-beautiful-sexy-mixed-race-woman-having-fun-on-summer-travel-vacation_rnwnkc90b_thumbnail-1080_15.png",
-        "https://images.news18.com/ibnlive/uploads/2023/05/318599667_513199807509111_3144331053555681340_n-168371332416x9.jpg?impolicy=website&width=640&height=360",
+        "https://images.news18.com/ibnlive/uploads/2023/05/318599667_513199807509111_3144331053555681340_n-168371332416x9.jpg",
         "https://i0.wp.com/www.badchix.com/wp-content/uploads/2015/07/seen-on-badchix-girls-and-a-hot-summer-are-a-perfect-combo-01.jpg?fit=750%2C421&ssl=1"
       ];
       document.querySelectorAll(".thumbnail").forEach(img => {
@@ -130,49 +85,37 @@
         img.src = randomThumb;
       });
 
-      // Run ad-blocker check on page load
       checkAdBlocker();
     });
 
-    // Enhanced Ad-blocker Detection Function with reload on success
+    // Ad-blocker detection
     function checkAdBlocker() {
       const overlay = document.getElementById('adblock-overlay');
-
-      // Create bait element with common ad-related class names
       const bait = document.createElement('div');
       bait.className = 'ad ads advertisement banner-ad';
       bait.style.position = 'absolute';
       bait.style.left = '-9999px';
       bait.style.height = '1px';
       bait.style.width = '1px';
-      bait.style.top = '0';
       document.body.appendChild(bait);
 
       let imgBlocked = false;
       const testImg = new Image();
-      testImg.src = '/ads.js'; // Typical ad resource path (adjust if needed)
+      testImg.src = '/ads.js';
       testImg.onerror = () => { imgBlocked = true; };
 
       setTimeout(() => {
-        const baitBlocked =
-          !document.body.contains(bait) ||
-          window.getComputedStyle(bait).display === 'none' ||
-          bait.offsetParent === null;
-
+        const baitBlocked = !document.body.contains(bait) || window.getComputedStyle(bait).display === 'none';
         if (baitBlocked || imgBlocked) {
-          // Ad blocker detected, show overlay
           overlay.style.display = 'flex';
           overlay.focus();
         } else {
-          // No ad blocker detected, reload page to fully enable ads/content
           overlay.style.display = 'none';
           location.reload();
         }
-
         bait.remove();
       }, 150);
     }
   </script>
-
 </body>
 </html>
