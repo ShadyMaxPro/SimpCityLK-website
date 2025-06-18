@@ -95,28 +95,34 @@
     </div>
   </div>
 
-  <!-- Scripts at the end for better performance -->
+  <!-- Adblock Detection Script -->
   <script>
-    // Anti-Adblock Detection (Improved)
-    document.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('load', function () {
       const bait = document.createElement('div');
       bait.className = 'adsbox';
-      bait.style.height = '1px';
-      bait.style.position = 'absolute';
-      bait.style.top = '-1000px';
+      bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-1000px;top:-1000px;';
       document.body.appendChild(bait);
 
-      setTimeout(() => {
-        // Check if bait is hidden or removed by adblocker
-        if (!bait || bait.offsetHeight === 0 || getComputedStyle(bait).display === 'none') {
+      setTimeout(function () {
+        const detected =
+          !bait ||
+          bait.offsetHeight === 0 ||
+          bait.offsetParent === null ||
+          getComputedStyle(bait).display === 'none' ||
+          getComputedStyle(bait).visibility === 'hidden';
+
+        if (detected) {
           document.getElementById('adblock-overlay').style.display = 'block';
         }
-        if (bait) bait.remove();
-      }, 150);
-    });
 
-    // Thumbnail Randomizer (Runs after DOM is ready)
-    document.addEventListener('DOMContentLoaded', function() {
+        bait.remove();
+      }, 200);
+    });
+  </script>
+
+  <!-- Thumbnail Randomizer -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
       const thumbnails = [
         "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
         "https://c4.wallpaperflare.com/wallpaper/740/311/655/the-sun-water-sea-girl-wallpaper-preview.jpg",
