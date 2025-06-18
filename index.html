@@ -78,5 +78,25 @@
     });
   </script>
 
+  <!-- Minimal Ad Block Detection Script -->
+  <script>
+    // Create a bait element that ad blockers usually block
+    const adBait = document.createElement('div');
+    adBait.className = 'adsbox';
+    adBait.style.position = 'absolute';
+    adBait.style.left = '-9999px';
+    document.body.appendChild(adBait);
+
+    window.setTimeout(() => {
+      if (adBait.offsetHeight === 0 || adBait.offsetParent === null) {
+        // Ad blocker detected
+        alert('We have detected that you are using an ad blocker. Please disable it to support our site.');
+        // Optionally, block content instead of alert:
+        // document.body.innerHTML = '<h1>Please disable your ad blocker to view this site.</h1>';
+      }
+      adBait.remove();
+    }, 100);
+  </script>
+
 </body>
 </html>
