@@ -189,19 +189,9 @@
       cursor: pointer;
       font-size: 16px;
     }
-
-    #adcheck {
-      width: 1px;
-      height: 1px;
-      position: absolute;
-      left: -9999px;
-    }
   </style>
 </head>
 <body>
-
-  <!-- Fake ad element for detection -->
-  <div id="adcheck" class="adsbygoogle"></div>
 
   <!-- Adblock modal -->
   <div id="adblock-message">
@@ -298,19 +288,17 @@
         updateIcon(false);
       }
 
-      // Ad blocker detection
-      setTimeout(() => {
-        const adTest = document.getElementById('adcheck');
-        const style = window.getComputedStyle(adTest);
-        const hidden = style.display === 'none' || style.visibility === 'hidden' || adTest.offsetHeight === 0;
-
-        if (hidden) {
-          document.body.innerHTML = ''; // Optional: clear page
-          const msg = document.getElementById('adblock-message');
-          msg.style.display = 'block';
-          document.body.appendChild(msg);
-        }
-      }, 1000);
+      // Adblock detection via bait script
+      const bait = document.createElement('script');
+      bait.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+      bait.async = true;
+      bait.onerror = function () {
+        const msg = document.getElementById('adblock-message');
+        document.body.innerHTML = '';
+        msg.style.display = 'block';
+        document.body.appendChild(msg);
+      };
+      document.head.appendChild(bait);
     };
   </script>
 
