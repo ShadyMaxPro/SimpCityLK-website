@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SimpCityLK</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    :root {
+      --primary-color: #1877f2;
+      --background-color: #E5E4E2;
+      --text-color: #1c1e21;
+      --subtext-color: #606770;
+      --white: #ffffff;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 15px 30px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    .header-content a {
+      display: inline-flex;
+      text-decoration: none;
+      color: var(--white);
+      align-items: center;
+    }
+
+    .site-logo {
+      height: 50px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      max-width: 930px;
+      margin: 20px auto 40px;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .main-video {
+      background: var(--white);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .main-video iframe {
+      width: 100%;
+      height: 360px;
+      border: none;
+      border-radius: 8px;
+      background: black;
+    }
+
+    .video-info {
+      margin-top: 10px;
+    }
+
+    .video-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+
+    .video-description {
+      font-size: 14px;
+      color: var(--subtext-color);
+    }
+
+    .video-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .video-box {
+      background-color: var(--white);
+      border-radius: 6px;
+      padding: 10px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease;
+    }
+
+    .video-box:hover {
+      transform: scale(1.03);
+    }
+
+    .video-box.active {
+      border: 2px solid var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <a href="index.html">
+        <img src="photo_2025-05-23_11-07-14.jpg" alt="SimpCityLK Logo" class="site-logo" />
+      </a>
+      <span>SimpCityLK</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="main-video">
+      <iframe 
+        id="mainVideo" 
+        src="https://vide0.net/e/vl9zk87daz07" 
+        allowfullscreen>
+      </iframe>
+      <div class="video-info">
+        <div class="video-title" id="videoTitle">Video 1</div>
+        <div class="video-description" id="videoDescription">This video is embedded from Vide0.net.</div>
+      </div>
+    </div>
+
+    <div class="video-list" id="videoList">
+      <!-- Video boxes dynamically generated -->
+    </div>
+  </div>
+
+  <script>
+    const videos = [
+      "https://vide0.net/e/vl9zk87daz07",
+      "https://vide0.net/e/ha637y5pit56",
+      "https://vide0.net/e/gv4saq4l1dry",
+      "https://vide0.net/e/6flsqyjdw67d",
+      "https://vide0.net/e/fz8llnkbc9l6",
+      "https://vide0.net/e/k5vs2ir971l3",
+      "https://vide0.net/e/nzkgjxr4zlpp",
+      "https://vide0.net/e/87v3qknvqplc",
+      "https://vide0.net/e/ktvqjzulm9x5",
+      "https://vide0.net/e/y2iqjs0im165",
+      "https://vide0.net/e/tcfxo0dnbek3"
+    ];
+
+    const videoList = document.getElementById("videoList");
+
+    videos.forEach((url, index) => {
+      const box = document.createElement("div");
+      box.className = "video-box" + (index === 0 ? " active" : "");
+      box.textContent = `Video ${index + 1}`;
+      box.onclick = () => changeVideo(box, url, `Video ${index + 1}`, "This video is embedded from Vide0.net.");
+      videoList.appendChild(box);
+    });
+
+    function changeVideo(element, src, title, description) {
+      document.getElementById("mainVideo").src = src;
+      document.getElementById("videoTitle").textContent = title;
+      document.getElementById("videoDescription").textContent = description;
+
+      document.querySelectorAll(".video-box").forEach(box => box.classList.remove("active"));
+      element.classList.add("active");
+    }
+  </script>
+
+</body>
+</html>
