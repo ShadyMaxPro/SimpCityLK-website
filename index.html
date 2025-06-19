@@ -8,6 +8,8 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
   <style>
@@ -153,7 +155,7 @@
       margin: 0;
     }
 
-    /* ======== ONLY UPDATED CSS FOR AD BLOCK MESSAGE ========== */
+    /* Fixed adblock message alignment */
     #adblock-message {
       display: none;
       position: fixed;
@@ -161,17 +163,18 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.95);
+      background: rgba(0, 0, 0, 0.9);
       color: white;
       z-index: 9999;
-      padding: 40px 20px;
-      box-sizing: border-box;
 
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+
       text-align: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
     }
 
     #adblock-message h2 {
@@ -195,30 +198,15 @@
       cursor: pointer;
       font-size: 16px;
     }
-
-    @media (max-width: 480px) {
-      #adblock-message h2 {
-        font-size: 22px;
-      }
-
-      #adblock-message p {
-        font-size: 16px;
-      }
-
-      #adblock-message button {
-        font-size: 15px;
-        padding: 8px 16px;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- AdBlock Message -->
+  <!-- Adblock modal -->
   <div id="adblock-message">
-    <h2>🔒 AdBlock Detected</h2>
-    <p>To support SimpCityLK, please disable your ad blocker and reload the page. We don’t show ads yet, but this helps us grow.</p>
-    <button onclick="location.reload()">I’ve disabled AdBlock — Reload</button>
+    <h2>🔒 Please disable your ad blocker to access SimpCityLK</h2>
+    <p>This site requires ad blockers to be turned off, even if we don’t show ads yet.</p>
+    <button onclick="location.reload()">I’ve disabled AdBlock, Reload</button>
   </div>
 
   <header>
@@ -309,13 +297,13 @@
         updateIcon(false);
       }
 
-      // Your original AdBlock detection code:
+      // Adblock detection via bait script
       const bait = document.createElement('script');
       bait.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
       bait.async = true;
       bait.onerror = function () {
-        document.body.innerHTML = '';
         const msg = document.getElementById('adblock-message');
+        document.body.innerHTML = '';
         msg.style.display = 'flex';
         document.body.appendChild(msg);
       };
