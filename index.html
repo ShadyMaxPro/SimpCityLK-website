@@ -4,70 +4,199 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SimpCityLK</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="juicyads-site-verification" content="882fcfc90d4bc530eeb83f91626ed598">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+    :root {
+      --primary-color: #1877f2;
+      --background-color: #E5E4E2;
+      --text-color: #1c1e21;
+      --subtext-color: #606770;
+      --white: #ffffff;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
+
+    body.dark {
+      --background-color: #18191a;
+      --text-color: #e4e6eb;
+      --subtext-color: #b0b3b8;
+      --white: #242526;
+      --shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .header-content {
       display: flex;
       align-items: center;
-      padding: 10px;
-      background-color: #111;
-      color: #fff;
+      gap: 5px;
+      font-size: 24px;
     }
-    .site-logo {
-      height: 40px;
-      margin-right: 10px;
-    }
-    .search-bar {
+
+    .header-content a {
+      text-decoration: none;
+      color: var(--white);
       display: flex;
-      justify-content: center;
-      padding: 10px;
-      background: #f4f4f4;
+      align-items: center;
     }
-    .search-bar input {
-      padding: 8px;
-      width: 60%;
-      max-width: 400px;
-      margin-right: 10px;
+
+    .site-logo {
+      height: 50px;
+      width: auto;
+      border-radius: 6px;
     }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      color: #ffdd57;
+    }
+
+    .search-bar {
+      margin: 20px auto;
+      max-width: 600px;
+      display: flex;
+    }
+
+    .search-bar input[type="text"] {
+      flex: 1;
+      padding: 10px 15px;
+      font-size: 16px;
+      border: 2px solid var(--primary-color);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+      background-color: var(--white);
+      color: var(--text-color);
+    }
+
+    .search-bar button {
+      background-color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 0 4px 4px 0;
+      color: var(--white);
+      font-weight: 700;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-bar button:hover {
+      background-color: #145dbf;
+    }
+
     .videos-container {
+      max-width: 1200px;
+      margin: 0 auto 40px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      padding: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
     }
+
     .video-card {
-      border: 1px solid #ccc;
+      background: var(--white);
       border-radius: 8px;
       overflow: hidden;
-      text-align: center;
-      background: #fff;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
     }
-    .thumbnail {
+
+    .video-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .video-card iframe,
+    .video-card img {
       width: 100%;
-      height: 150px;
+      height: 180px;
+      border: none;
       object-fit: cover;
     }
+
+    .video-info {
+      padding: 12px 15px;
+    }
+
     .video-title {
-      padding: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    /* Adblock modal */
+    #adblock-message {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    #adblock-message h2 {
+      margin-top: 100px;
+      font-size: 24px;
+    }
+
+    #adblock-message p {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    #adblock-message button {
+      margin-top: 30px;
+      padding: 10px 20px;
       font-size: 16px;
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+    }
+
+    #adcheck {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- AdBlock Detection Trap -->
-  <div id="adblock-check" style="height: 1px; width: 1px; position: absolute; left: -9999px;">
-    <script>
-      document.write("adblock_check_passed");
-    </script>
-  </div>
-
-  <!-- Site Header -->
   <header>
     <div class="header-content">
       <a href="index.html">
@@ -75,84 +204,67 @@
       </a>
       <span>SimpCityLK</span>
     </div>
+    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeIcon">
+      <i class="fas fa-moon"></i>
+    </button>
   </header>
 
-  <!-- Search Bar -->
   <div class="search-bar">
     <input type="text" placeholder="Search videos..." />
     <button>Search</button>
   </div>
 
-  <!-- Video Cards -->
   <div class="videos-container">
-    <div class="video-card">
-      <a href="Page - 01.html">
-        <img class="thumbnail" src="" alt="Video 01 Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 01</h3>
-        </div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="Page - 02.html">
-        <img class="thumbnail" src="" alt="Video 02 Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 02</h3>
-        </div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="Page - 03.html">
-        <img class="thumbnail" src="" alt="Video 03 Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 03</h3>
-        </div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="Page - 04.html">
-        <img class="thumbnail" src="" alt="Video 04 Thumbnail" />
-        <div class="video-info">
-          <h3 class="video-title">Video - 04</h3>
-        </div>
-      </a>
-    </div>
+    <!-- Example Video Cards -->
+    <!-- [keep your video cards as is] -->
   </div>
 
-  <!-- Thumbnail Randomizer -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const thumbnails = [
-        "https://c4.wallpaperflare.com/wallpaper/688/335/699/models-sara-sampaio-beach-bikini-wallpaper-preview.jpg",
-        "https://c4.wallpaperflare.com/wallpaper/740/311/655/the-sun-water-sea-girl-wallpaper-preview.jpg",
-        "https://c4.wallpaperflare.com/wallpaper/814/529/162/sea-bikini-vacation-ocean-wallpaper-preview.jpg",
-        "https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/HZHnL4R6xj1hrqjd5/videoblocks-bikini-beach-woman-happy-smiling-playful-cheerful-having-fun-dancing-around-bikini-girl-wearing-sunglasses-excited-and-joyful-beautiful-sexy-mixed-race-woman-having-fun-on-summer-travel-vacation_rnwnkc90b_thumbnail-1080_15.png",
-        "https://images.news18.com/ibnlive/uploads/2023/05/318599667_513199807509111_3144331053555681340_n-168371332416x9.jpg?impolicy=website&width=640&height=360",
-        "https://i0.wp.com/www.badchix.com/wp-content/uploads/2015/07/seen-on-badchix-girls-and-a-hot-summer-are-a-perfect-combo-01.jpg?fit=750%2C421&ssl=1"
-      ];
-      document.querySelectorAll(".thumbnail").forEach(img => {
-        const randomThumb = thumbnails[Math.floor(Math.random() * thumbnails.length)];
-        img.src = randomThumb;
-      });
-    });
-  </script>
+  <!-- Hidden fake ad check -->
+  <div id="adcheck">
+    <script>
+      document.write('<script src="https://example.com/fakead.js"><\/script>');
+    </script>
+  </div>
 
-  <!-- AdBlock Detection Handler -->
-  <script>
-    window.addEventListener('load', function () {
-      const adCheckDiv = document.getElementById('adblock-check');
-      const adBlocked = !adCheckDiv || adCheckDiv.innerHTML.indexOf('adblock_check_passed') === -1;
+  <!-- Adblock warning -->
+  <div id="adblock-message">
+    <h2>😢 Please support SimpCityLK by disabling your ad blocker</h2>
+    <p>We depend on ad revenue to keep our content free for everyone. Thanks for understanding!</p>
+    <button onclick="location.reload()">Reload Page</button>
+  </div>
 
-      if (adBlocked) {
-        document.body.innerHTML = `
-          <div style="text-align: center; padding: 50px; font-family: sans-serif;">
-            <h1>Ad Blocker Detected</h1>
-            <p>Please disable your ad blocker to continue using SimpCityLK.</p>
-            <p>We rely on ads to keep our content free and alive!</p>
-          </div>
-        `;
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      updateIcon(isDark);
+    }
+
+    function updateIcon(isDark) {
+      const icon = document.getElementById("themeIcon").firstElementChild;
+      icon.className = isDark ? "fas fa-sun" : "fas fa-moon";
+    }
+
+    window.onload = function () {
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+        document.body.classList.add("dark");
+        updateIcon(true);
+      } else {
+        updateIcon(false);
       }
-    });
+
+      // AdBlock detection
+      setTimeout(() => {
+        const adTest = document.getElementById('adcheck');
+        if (adTest.offsetHeight === 0 || adTest.innerHTML.trim() === '') {
+          document.getElementById('adblock-message').style.display = 'block';
+        }
+      }, 1000);
+    };
   </script>
 
 </body>
